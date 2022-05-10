@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Project_ASP.Net</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Categories\**" />
+    <Content Remove="Views\Categories\**" />
+    <EmbeddedResource Remove="Views\Categories\**" />
+    <None Remove="Views\Categories\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Models\ShoppingCart.cs" />

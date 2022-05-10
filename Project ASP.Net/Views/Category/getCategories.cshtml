@@ -1,0 +1,27 @@
+﻿
+@model List<Category>
+
+@{
+	ViewData["Title"] = "getCategories";
+	Layout = "_CategoryPage";
+}
+
+       <div class="section container" style="display:flex;">
+
+@foreach (Category cate in @Model)
+        {
+
+			<div class="container">
+						<div class="shop">
+							<div class="shop-img">
+								<img src="/images/@cate.picture" alt="">
+							</div>
+							<div class="shop-body">
+								<h3>@cate.Name<br>Collection</h3>
+								<a href="/category/getCategoryById/@cate.Cat_Id" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+							</div>
+						</div>
+			</div>
+		}
+	   </div>
+

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Project_ASP.Net.Repository;
 
 namespace Project_ASP.Net
 {
@@ -32,8 +33,8 @@ namespace Project_ASP.Net
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("cs"));
             });
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ASPContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ASPContext>();
+            services.AddScoped<ICategoriesRepository,CategoriesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
