@@ -1,0 +1,29 @@
+﻿
+@model CategoryViewModel
+@{
+    ViewData["Title"] = "AddCategory";
+}
+
+<form method="post" asp-action="SaveCategory" asp-controller="Category" >
+    <div asp-validation-summary="All" class="text-danger"></div>
+   
+    <div>
+        <label asp-for="cate.Name"></label>
+        <input asp-for="cate.Name" class="form-control" />
+        <span  asp-validation-for="cate.Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="cate.picture"></label>
+        <input asp-for="cate.picture" class="form-control" />
+        <span  asp-validation-for="cate.picture" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="cate.Description"></label>
+        <input asp-for="cate.Description" class="form-control" />
+        <span asp-validation-for="cate.Description" class="text-danger"></span>
+    </div>
+     <input type="submit" value="Create" class="btn btn-success" />
+</form>
+
+
+

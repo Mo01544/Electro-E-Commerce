@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Project_ASP.Net.Repository;
 
 namespace Project_ASP.Net
 {
@@ -35,6 +36,7 @@ namespace Project_ASP.Net
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ASPContext>();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddScoped<ICategoriesRepository,CategoriesRepository>();
 
             ////// Sign Services 
             services.AddAuthentication()
