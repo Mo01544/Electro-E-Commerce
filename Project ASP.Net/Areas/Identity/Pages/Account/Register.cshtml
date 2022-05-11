@@ -56,16 +56,18 @@
                                             string ImgSrc = string.Empty;
 
                                             if (provider.DisplayName == "Google")
-                                                //ImgSrc = "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png";
                                                 ImgSrc = "https://img.icons8.com/color/344/google-logo.png";
                                             else if (provider.DisplayName == "GitHub")
                                                 ImgSrc = "https://img.icons8.com/glyph-neue/344/github.png";
                                             else if (provider.DisplayName == "Facebook")
-                                                ImgSrc = "https://img.icons8.com/fluency/344/facebook-new.png"; 
+                                                ImgSrc = "https://img.icons8.com/fluency/344/facebook-new.png";
                                      }
-                                    <img src="@ImgSrc" alt="@provider.DisplayName" style="height: 40px; margin:4px; align-content:center;" />
+                                     
+                                    <img src="@ImgSrc" alt="@provider.DisplayName" style="height: 40px; margin:20px; align-content:center;"/>
                                         Sign Up With @provider.DisplayName
+
                                    </button>
+
                                 }
                             </p>
                         </div>
