@@ -11,13 +11,18 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post"  asp-action="AddProduct">
+        <form method="post" asp-action="AddProduct">
             <div asp-validation-summary="All" class="text-danger"></div>
-           
+
             <div class="form-group">
                 <label asp-for="Pro_Name" class="control-label"></label>
                 <input asp-for="Pro_Name" class="form-control" />
                 <span asp-validation-for="Pro_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product_Brand" class="control-label"></label>
+                <input asp-for="Product_Brand" class="form-control" />
+                <span asp-validation-for="Product_Brand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Unit_Price" class="control-label"></label>
@@ -40,8 +45,7 @@
                 <span asp-validation-for="NumSeller" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="image" class="control-label"></label>
-                <input  type="file" asp-for="image" class="form-control" />
+                <input type="file" name="image"/>
                 <span asp-validation-for="image" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -58,7 +62,7 @@
                 <input type="submit" value="Add Product" class="btn btn-default" />
             </div>
 
-           
+
 
         </form>
     </div>

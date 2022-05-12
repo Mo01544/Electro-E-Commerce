@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using Project_ASP.Net.Repositories;
 using Project_ASP.Net.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+
 namespace Project_ASP.Net.Controllers
 {
     public class ProductsController : Controller
     {
          IProductsRepository ProductsRepository;
         ICategoryRepository categoryRepository;
-        public ProductsController(IProductsRepository _productsRepository,ICategoryRepository _categoryRepository)
+        IWebHostEnvironment webHostEnvironment;
+        public ProductsController(IProductsRepository _productsRepository,ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
         {
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;
+            this.webHostEnvironment = _webHostEnvironment;
 
         }
 
@@ -43,11 +48,12 @@ namespace Project_ASP.Net.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddProduct(Product Newproduct)
+        public IActionResult AddProduct(Product Newproduct,IFormFile image)
         {
             if (ModelState.IsValid == true)
             {
-                ProductsRepository.AddNewProduct(Newproduct);
+                Newproduct.image = image.ToString();
+                ProductsRepository.AddNewProduct(Newproduct,image);
                 return RedirectToAction("GetAllProducts");
             }
             else
