@@ -11,9 +11,6 @@ namespace Project_ASP.Net.Controllers
     {
         private IProductsRepository ProductsRepository;
         private ICategoryRepository categoryRepository;
-        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository)
-         IProductsRepository ProductsRepository;
-        ICategoryRepository categoryRepository;
         IWebHostEnvironment webHostEnvironment;
         public ProductsController(IProductsRepository _productsRepository,ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
         {

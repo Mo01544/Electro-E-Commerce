@@ -33,10 +33,8 @@ namespace Project_ASP.Net
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ASPContext>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IFilterPanelCategoriesRepository, FilterPanelCategoriesRepository>();
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ASPContext>();
-            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             ////// Sign Services 
             services.AddAuthentication()
