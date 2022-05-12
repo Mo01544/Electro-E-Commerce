@@ -5,7 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.ViewModel;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Project_ASP.Net.Repository;
+using Microsoft.AspNetCore.Authorization;
 using System;
 
 namespace Project_ASP.Net.Controllers
@@ -13,10 +16,12 @@ namespace Project_ASP.Net.Controllers
     public class CategoryController : Controller
     {
         ICategoriesRepository cateRepository;
+        IWebHostEnvironment webHostEnvironment;
 
-        public CategoryController(ICategoriesRepository catesRepository)
+        public CategoryController(ICategoriesRepository catesRepository, IWebHostEnvironment webHostEnvironment)
         {
             cateRepository = catesRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult getCategories()
@@ -27,31 +32,66 @@ namespace Project_ASP.Net.Controllers
         {
             return View(cateRepository.FindById(id));
         }
-        public IActionResult AddCategory(Category cate)
+        public IActionResult CrudCategory(Category cate)
         {
-            return View(
-                    new CategoryViewModel()
-                    {
-                        cate = new Category()
-                    }
-                );
+
+            return View(cateRepository.GetAll());
+        }
+        public IActionResult AddCategory()
+        {
+            return View(new Category());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SaveCategory(Category cate)
+        public IActionResult SaveAddCategory(CategoryViewModel cat)
         {
-            if (ModelState.IsValid == true)
+
+            if (ModelState.IsValid == false)
             {
-                cateRepository.Insert(cate);
-                return RedirectToAction("getCategories");
+                return View("AddCategory", cat);
             }
-            else
+
+            string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
+            string imgPath = Path.Combine(categoriesImages, UniqueimgName);
+            using (var fileStream = new FileStream(imgPath, FileMode.Create))
             {
-                return View("AddCategory", cate);
+                cat.Picture.CopyTo(fileStream);
+                fileStream.Close();
             }
+            this.cateRepository.Insert(new Category() { Name = cat.Name, picture = UniqueimgName, Description = cat.Description });
+            return RedirectToAction("CrudCategory");
+
 
         }
+        public IActionResult EditCategory(int id)
+        {
+            Category cate = cateRepository.FindById(id);
+            if (cate != null)
+            {
+                return View("EditCategory", cate);
+            }
+            return RedirectToAction("CrudCategory");
+        }
+        [HttpPost]
+        public IActionResult SaveEditCategory(int id,// [Bind("Name,Address")]
+            Category cate)
+        {
+            if (cate.Name != null)
+            {
+                cateRepository.Edit(id, cate);
+                return RedirectToAction("CrudCategory");
+            }
+            return View("SaveEditCategory", cate);
+        }
+        public IActionResult DeleteCategory(int id)
+        {
+   
+            cateRepository.Delete(id);
+            return RedirectToAction("CrudCategory");
 
+
+        }
 
     }
 }
