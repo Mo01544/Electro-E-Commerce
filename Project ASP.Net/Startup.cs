@@ -6,11 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project_ASP.Net.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Project_ASP.Net.Repository;
+using Project_ASP.Net.Repositories;
+using Project_ASP.Net.Repositories.Categories;
 
 namespace Project_ASP.Net
 {
@@ -33,10 +30,11 @@ namespace Project_ASP.Net
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("cs"));
             });
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ASPContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ASPContext>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IFilterPanelCategoriesRepository, FilterPanelCategoriesRepository>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddScoped<ICategoriesRepository,CategoriesRepository>();
 
             ////// Sign Services 
             services.AddAuthentication()
@@ -60,6 +58,9 @@ namespace Project_ASP.Net
             ;
 
             services.AddControllersWithViews();
+
+            services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 

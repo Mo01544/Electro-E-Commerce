@@ -239,6 +239,17 @@ namespace Project_ASP.Net.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Project_ASP.Net.Models.FilterPanalCategoryData", b =>
+                {
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfProducts")
+                        .HasColumnType("int");
+
+                    b.ToTable("CategoriesFilterPanel");
+                });
+
             modelBuilder.Entity("Project_ASP.Net.Models.Order", b =>
                 {
                     b.Property<int>("Order_Id")
@@ -292,13 +303,18 @@ namespace Project_ASP.Net.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("money");
 
                     b.Property<string>("Pro_Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Product_Brand")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
