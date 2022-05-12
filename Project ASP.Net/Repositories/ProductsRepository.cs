@@ -8,21 +8,15 @@ namespace Project_ASP.Net.Repositories
 
     public class ProductsRepository : IProductsRepository
     {
-        ASPContext aSPContext;
+        private ASPContext aSPContext;
         public ProductsRepository(ASPContext _aSPContext)
         {
             aSPContext = _aSPContext;
         }
 
-        public List<Product> GetProducts()
-        {
-            return aSPContext.Products.ToList();
-        }
+        public List<Product> GetProducts() => aSPContext.Products.ToList();
 
-        public Product GetProductById(int id)
-        {
-            return aSPContext.Products.Include(c=>c.Category).FirstOrDefault(p => p.Pro_Id == id);
-        }
+        public Product GetProductById(int id) => aSPContext.Products.Include(c => c.Category).FirstOrDefault(p => p.Pro_Id == id);
         public int EditProduct(int id, Product NewProduct)
         {
             Product oldProduct = GetProductById(id);
