@@ -10,8 +10,8 @@ using Project_ASP.Net.Models;
 namespace Project_ASP.Net.Migrations
 {
     [DbContext(typeof(ASPContext))]
-    [Migration("20220508222749_v5")]
-    partial class v5
+    [Migration("20220510224119_v30")]
+    partial class v30
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
