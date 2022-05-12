@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using Project_ASP.Net.Models;
+﻿using Project_ASP.Net.Models;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-namespace Project_ASP.Net.Repository
+namespace Project_ASP.Net.Repositories.Categories
 {
     public class CategoriesRepository : ICategoriesRepository
     {
-        ASPContext db = new ASPContext();
+        private ASPContext db;
+
+        public CategoriesRepository(ASPContext _db)
+        {
+            db = _db;
+        }
 
         public int Delete(int id)
         {
@@ -29,15 +33,9 @@ namespace Project_ASP.Net.Repository
             return 0;
         }
 
-        public Category FindById(int id)
-        {
-            return db.Categories.FirstOrDefault(x => x.Cat_Id == id);
-        }
+        public Category FindById(int id) => db.Categories.FirstOrDefault(x => x.Cat_Id == id);
 
-        public List<Category> GetAll()
-        {
-            return db.Categories.ToList();
-        }
+        public List<Category> GetAll() => db.Categories.ToList();
 
         public int Insert(Category cate)
         {

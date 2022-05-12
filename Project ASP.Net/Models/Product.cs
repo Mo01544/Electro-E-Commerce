@@ -1,10 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Project_ASP.Net.Models
@@ -15,10 +9,10 @@ namespace Project_ASP.Net.Models
         public int Pro_Id { get; set; }
         [Required(ErrorMessage = "Product Name Is Requierd")]
         //[Range(minimum: 5, maximum: 30, ErrorMessage = "Product Name Must Between 5,30")]
-        [MinLength(length:3,ErrorMessage = "Product Name Must More Than 3 char")]
+        [MinLength(length: 3, ErrorMessage = "Product Name Must More Than 3 char")]
         [MaxLength(30, ErrorMessage = "Product Name Must Less Than 30 char")]
         public string Pro_Name { get; set; }
-        [Column(TypeName ="money")]
+        [Column(TypeName = "money")]
         [Required(ErrorMessage = "Unit Price Is Requierd & Must be Number")]
         public decimal Unit_Price { get; set; }
         [Required(ErrorMessage = "Description Is Requierd")]
@@ -36,6 +30,8 @@ namespace Project_ASP.Net.Models
         public int Discount { get; set; }
         [ForeignKey("Category")]
         public int cat_id { get; set; }
+
+        // nav prop
         public virtual Category Category { get; set; }
         //public virtual List<Order> Orders { get; set; }=new List<Order>();
         public virtual List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();

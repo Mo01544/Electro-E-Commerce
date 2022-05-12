@@ -6,11 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Project_ASP.Net.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Project_ASP.Net.Repository;
+using Project_ASP.Net.Repositories.Categories;
 
 namespace Project_ASP.Net
 {
@@ -26,15 +22,16 @@ namespace Project_ASP.Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddControllersWithViews();
-            
+
             services.AddDbContext<ASPContext>(Options =>
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("cs"));
             });
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ASPContext>();
-            services.AddScoped<ICategoriesRepository,CategoriesRepository>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IFilterPanelCategoriesRepository, FilterPanelCategoriesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

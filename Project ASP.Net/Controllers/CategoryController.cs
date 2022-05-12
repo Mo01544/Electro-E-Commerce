@@ -1,32 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
+using Project_ASP.Net.Repositories.Categories;
 using Project_ASP.Net.ViewModel;
-using System.IO;
-using Project_ASP.Net.Repository;
-using System;
 
 namespace Project_ASP.Net.Controllers
 {
     public class CategoryController : Controller
     {
-        ICategoriesRepository cateRepository;
+        private ICategoriesRepository cateRepository;
 
         public CategoryController(ICategoriesRepository catesRepository)
         {
             cateRepository = catesRepository;
         }
 
-        public IActionResult getCategories()
-        {
-            return View(cateRepository.GetAll());
-        }
-        public IActionResult getCategoryById(int id)
-        {
-            return View(cateRepository.FindById(id));
-        }
+        public IActionResult getCategories() => View(cateRepository.GetAll());
+        public IActionResult getCategoryById(int id) => View(cateRepository.FindById(id));
         public IActionResult AddCategory(Category cate)
         {
             return View(
