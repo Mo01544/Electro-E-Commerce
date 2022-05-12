@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Project_ASP.Net.Repository;
 using Project_ASP.Net.Repositories;
 
 namespace Project_ASP.Net
@@ -26,15 +27,41 @@ namespace Project_ASP.Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddControllersWithViews();
-            
+
             services.AddDbContext<ASPContext>(Options =>
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("cs"));
             });
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ASPContext>();
+            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddScoped<ICategoriesRepository,CategoriesRepository>();
+
+            ////// Sign Services 
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                IConfigurationSection googleAuthSection = Configuration.GetSection("Authentication:Google");
+                options.ClientId = googleAuthSection["ClientId"];
+                options.ClientSecret = googleAuthSection["ClientSecret"];
+            })
+            .AddGitHub(gitHubOptions =>
+            {
+                gitHubOptions.ClientId = Configuration["Authentication:GitHub:ClientId"];
+                gitHubOptions.ClientSecret = Configuration["Authentication:GitHub:ClientSecret"];
+
+            })
+            .AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            })
+            ;
+
+            services.AddControllersWithViews();
+
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
