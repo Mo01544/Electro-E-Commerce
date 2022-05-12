@@ -17,7 +17,7 @@ namespace Project_ASP.Net.Models
         [Required(ErrorMessage = " product_Quantity Is Requierd")]
         public int product_Quantity { get; set; }
         public string Status { get; set; }
-        public decimal Total_price { get; set; }
+        public int Total_price { get; set; }
         //[ForeignKey("product_id")]
         //public int product_id { get; set; }
         //public virtual Product Product { get; set; }

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Project_ASP.Net</RootNamespace>
+    <UserSecretsId>af45576d-be93-4af0-9a15-fa0e824a9600</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +19,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\fonts\slick.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.16">
       <PrivateAssets>all</PrivateAssets>
