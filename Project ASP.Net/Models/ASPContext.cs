@@ -1,15 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project_ASP.Net.Models
 {
-    public class ASPContext:IdentityDbContext<ApplicationUser>
+    public class ASPContext : IdentityDbContext<ApplicationUser>
     {
-        public ASPContext() : base()
-        {
-
-        }
 
         public ASPContext(DbContextOptions options) : base(options)
         {
@@ -24,12 +19,11 @@ namespace Project_ASP.Net.Models
             modelBuilder.Entity<OrderDetails>().HasKey(n => new { n.product_id, n.order_id });
             base.OnModelCreating(modelBuilder);
         }
-        
+
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet <Order> Orders { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-
-        
+        public virtual DbSet<FilterPanalCategoryData> CategoriesFilterPanel { get; set; }
     }
 }

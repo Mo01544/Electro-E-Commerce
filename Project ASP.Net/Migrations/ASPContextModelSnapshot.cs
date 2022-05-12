@@ -16,7 +16,7 @@ namespace Project_ASP.Net.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.16")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -239,6 +239,17 @@ namespace Project_ASP.Net.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Project_ASP.Net.Models.FilterPanalCategoryData", b =>
+                {
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfProducts")
+                        .HasColumnType("int");
+
+                    b.ToTable("CategoriesFilterPanel");
+                });
+
             modelBuilder.Entity("Project_ASP.Net.Models.Order", b =>
                 {
                     b.Property<int>("Order_Id")
@@ -252,8 +263,8 @@ namespace Project_ASP.Net.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Total_price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Total_price")
+                        .HasColumnType("int");
 
                     b.Property<int>("product_Quantity")
                         .HasColumnType("int");
@@ -292,13 +303,18 @@ namespace Project_ASP.Net.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("money");
 
                     b.Property<string>("Pro_Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Product_Brand")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");

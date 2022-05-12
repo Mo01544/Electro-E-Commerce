@@ -1,13 +1,10 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 namespace Project_ASP.Net.Models
 {
     public class Category
@@ -26,8 +23,8 @@ namespace Project_ASP.Net.Models
         [MinLength(length: 20, ErrorMessage = "must be 20 letter or more")]
         [MaxLength(length: 100, ErrorMessage = "must be less than 100 letter")]
         public string Description { get; set; }
-        [Required(ErrorMessage ="Picture Is Requierd")]
-        [RegularExpression(pattern:@"\w+\.(jpg|png|jpeg)",ErrorMessage = "Picture Must End Path (.jpg,.png,.jpeg)")]
+        [Required(ErrorMessage = "Picture Is Requierd")]
+        [RegularExpression(pattern: @"\w+\.(jpg|png|jpeg)", ErrorMessage = "Picture Must End Path (.jpg,.png,.jpeg)")]
         public string picture { get; set; }
         public virtual List<Product> Products { get; set; }
 

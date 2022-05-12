@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project_ASP.Net.Migrations
 {
-    public partial class v5 : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,6 +59,17 @@ namespace Project_ASP.Net.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Cat_Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoriesFilterPanel",
+                columns: table => new
+                {
+                    NumberOfProducts = table.Column<int>(type: "int", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +187,7 @@ namespace Project_ASP.Net.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     product_Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Total_price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total_price = table.Column<int>(type: "int", nullable: false),
                     user_id = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -196,9 +207,10 @@ namespace Project_ASP.Net.Migrations
                 {
                     Pro_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pro_Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Pro_Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Product_Brand = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Unit_Price = table.Column<decimal>(type: "money", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Discount = table.Column<decimal>(type: "money", nullable: false),
@@ -310,6 +322,9 @@ namespace Project_ASP.Net.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CategoriesFilterPanel");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");

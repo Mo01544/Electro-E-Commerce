@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
+using Project_ASP.Net.Repositories.Categories;
 using Project_ASP.Net.ViewModel;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
