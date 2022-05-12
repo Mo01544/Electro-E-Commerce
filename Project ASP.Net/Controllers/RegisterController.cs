@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.ViewModel;
 using System.Threading.Tasks;
@@ -18,29 +18,26 @@ namespace Project_ASP.Net.Controllers
             signInManager = _signInManager;
         }
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel RegisterUserVm)
         {
-            if (ModelState.IsValid==true)
+            if (ModelState.IsValid == true)
             {
                 ApplicationUser applicationUser = new ApplicationUser();
                 applicationUser.UserName = RegisterUserVm.UserName;
                 applicationUser.Email = RegisterUserVm.Email;
                 applicationUser.PasswordHash = RegisterUserVm.Password;
-                IdentityResult result=await userManger.CreateAsync(applicationUser,RegisterUserVm.Password);
-                if(result.Succeeded)
+                IdentityResult result = await userManger.CreateAsync(applicationUser, RegisterUserVm.Password);
+                if (result.Succeeded)
                 {
-                   await signInManager.SignInAsync(applicationUser,false);
+                    await signInManager.SignInAsync(applicationUser, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    foreach(var item in result.Errors)
+                    foreach (IdentityError item in result.Errors)
                     {
                         ModelState.AddModelError("", item.Description);
                     }
@@ -49,21 +46,18 @@ namespace Project_ASP.Net.Controllers
             return View(RegisterUserVm);
         }
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel loginvm )
+        public async Task<IActionResult> Login(LoginViewModel loginvm)
         {
-            if (ModelState.IsValid==true)
+            if (ModelState.IsValid == true)
             {
                 ApplicationUser loginmodel = await userManger.FindByEmailAsync(loginvm.Email);
                 if (loginmodel != null)
                 {
                     bool found = await userManger.CheckPasswordAsync(loginmodel, loginvm.Password);
-                    if(found == true)
+                    if (found == true)
                     {
                         await signInManager.SignInAsync(loginmodel, loginvm.RememberMe);
                         return RedirectToAction("Index", "Home");

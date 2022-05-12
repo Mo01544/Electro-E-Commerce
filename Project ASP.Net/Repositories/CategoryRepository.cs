@@ -6,21 +6,15 @@ namespace Project_ASP.Net.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        ASPContext aspcontext;
+        private ASPContext aspcontext;
         public CategoryRepository(ASPContext _aSPContext)
         {
             aspcontext = _aSPContext;
         }
 
-        public List<Category> GetALLCategories()
-        {
-            return aspcontext.Categories.ToList();
-        }
+        public List<Category> GetALLCategories() => aspcontext.Categories.ToList();
 
-        public Category FindCategoryByID(int _CategoryId)
-        {
-            return aspcontext.Categories.FirstOrDefault(c => c.Cat_Id == _CategoryId);
-        }
+        public Category FindCategoryByID(int _CategoryId) => aspcontext.Categories.FirstOrDefault(c => c.Cat_Id == _CategoryId);
 
         public int AddNewCategory(Category NewCategory)
         {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Project_ASP.Net.Repositories;
 using Project_ASP.Net.Models;
+using Project_ASP.Net.Repositories;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -9,6 +9,9 @@ namespace Project_ASP.Net.Controllers
 {
     public class ProductsController : Controller
     {
+        private IProductsRepository ProductsRepository;
+        private ICategoryRepository categoryRepository;
+        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository)
          IProductsRepository ProductsRepository;
         ICategoryRepository categoryRepository;
         IWebHostEnvironment webHostEnvironment;
@@ -41,7 +44,7 @@ namespace Project_ASP.Net.Controllers
         }
 
         [HttpGet]
-    
+
         public IActionResult AddProduct()
         {
             ViewData["CategoryList"] = categoryRepository.GetALLCategories();
@@ -59,7 +62,7 @@ namespace Project_ASP.Net.Controllers
             else
             {
                 ViewData["CategoryList"] = categoryRepository.GetALLCategories();
-                return View("AddProduct",Newproduct);
+                return View("AddProduct", Newproduct);
             }
         }
 
@@ -68,8 +71,8 @@ namespace Project_ASP.Net.Controllers
         [HttpGet]
         public IActionResult EditProduct(int id)
         {
-            Product oldProduct=ProductsRepository.GetProductById(id);
-            if(oldProduct !=null)
+            Product oldProduct = ProductsRepository.GetProductById(id);
+            if (oldProduct != null)
             {
                 ViewData["CategoryList"] = categoryRepository.GetALLCategories();
                 return View("EditProduct", oldProduct);
@@ -78,10 +81,10 @@ namespace Project_ASP.Net.Controllers
             return RedirectToAction("GetAllProducts");
         }
         [HttpPost]
-        public IActionResult EditProduct(int id,Product Newproduct)
+        public IActionResult EditProduct(int id, Product Newproduct)
         {
-            
-            if(ModelState.IsValid==true)
+
+            if (ModelState.IsValid == true)
             {
                 ProductsRepository.EditProduct(id, Newproduct);
                 return RedirectToAction("GetAllProducts");
