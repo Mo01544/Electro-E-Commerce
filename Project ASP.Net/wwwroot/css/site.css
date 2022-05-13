@@ -1,4 +1,4 @@
-﻿/*General Stying*/ 
+﻿/*General Stying*/
 * {
     box-sizing: border-box;
 }
@@ -41,6 +41,7 @@ ul, ol {
 aside div.aside {
     width: 100%;
 }
+
 .aside > .aside-title {
     text-transform: uppercase;
     font-size: 18px;
@@ -61,4 +62,18 @@ aside div.aside {
     min-height: 20px;
     margin-bottom: 5px;
     cursor: pointer;
+}
+
+/* Custom styles
+-------------------------------------------------- */
+.profile-picture {
+    height: 290px;
+    width: 350px;
+    object-fit: cover;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
 }

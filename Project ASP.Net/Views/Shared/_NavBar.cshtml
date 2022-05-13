@@ -1,4 +1,9 @@
-﻿<!-- HEADER -->
+﻿@using Microsoft.AspNetCore.Identity
+@using Project_ASP.Net.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!-- HEADER -->
 		<header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
@@ -8,7 +13,7 @@
 						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
-					
+					 <partial name="_LoginPartial" />
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
