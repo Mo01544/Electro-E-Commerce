@@ -1,6 +1,8 @@
+using ASPNetCoreIdentityEmailDemo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,19 +26,25 @@ namespace Project_ASP.Net
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+
+            services.AddRazorPages();
 
             services.AddDbContext<ASPContext>(Options =>
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("cs"));
             });
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ASPContext>();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ASPContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<IFilterPanelCategoriesRepository, FilterPanelCategoriesRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             ////// Sign Services 
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddAuthentication()
             .AddGoogle(options =>
             {
@@ -60,7 +68,6 @@ namespace Project_ASP.Net
             services.AddControllersWithViews();
 
             services.AddScoped<IProductsRepository, ProductsRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 
@@ -87,6 +94,7 @@ namespace Project_ASP.Net
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

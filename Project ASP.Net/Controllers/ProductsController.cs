@@ -5,6 +5,9 @@ using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories;
 using Project_ASP.Net.Repositories.Categories;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Project_ASP.Net.Repositories.Categories;
 
 namespace Project_ASP.Net.Controllers
 {
@@ -16,6 +19,12 @@ namespace Project_ASP.Net.Controllers
         private IFilterPanelCategoriesRepository filterCategoryRepository;
 
         public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
+ 
+     
+         IProductsRepository ProductsRepository;
+        ICategoriesRepository categoryRepository;
+        IWebHostEnvironment webHostEnvironment;
+        public ProductsController(IProductsRepository _productsRepository,ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
         {
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;
@@ -50,7 +59,7 @@ namespace Project_ASP.Net.Controllers
 
         public IActionResult AddProduct()
         {
-            ViewData["CategoryList"] = categoryRepository.GetALLCategories();
+            ViewData["CategoryList"] = categoryRepository.GetAll();
             return View();
         }
         [HttpPost]
@@ -64,7 +73,7 @@ namespace Project_ASP.Net.Controllers
             }
             else
             {
-                ViewData["CategoryList"] = categoryRepository.GetALLCategories();
+                ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("AddProduct", Newproduct);
             }
         }
@@ -77,7 +86,7 @@ namespace Project_ASP.Net.Controllers
             Product oldProduct = ProductsRepository.GetProductById(id);
             if (oldProduct != null)
             {
-                ViewData["CategoryList"] = categoryRepository.GetALLCategories();
+                ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("EditProduct", oldProduct);
 
             }
@@ -94,7 +103,7 @@ namespace Project_ASP.Net.Controllers
             }
             else
             {
-                ViewData["CategoryList"] = categoryRepository.GetALLCategories();
+                ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("EditProduct", Newproduct);
             }
         }
