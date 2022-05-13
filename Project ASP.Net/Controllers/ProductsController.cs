@@ -18,13 +18,13 @@ namespace Project_ASP.Net.Controllers
         private IWebHostEnvironment webHostEnvironment;
         private IFilterPanelCategoriesRepository filterCategoryRepository;
 
-        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
- 
-     
-         IProductsRepository ProductsRepository;
+        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository);
+
+
+        IProductsRepository ProductsRepository;
         ICategoriesRepository categoryRepository;
         IWebHostEnvironment webHostEnvironment;
-        public ProductsController(IProductsRepository _productsRepository,ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
+        public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
         {
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;
@@ -110,10 +110,10 @@ namespace Project_ASP.Net.Controllers
 
         public IActionResult FilterProductByCategory(List<string> categories)
         {
-            if(categories.Count > 0)
+            if (categories.Count > 0)
             {
-            List<Product> filterProducts = ProductsRepository.FilterByCategory(categories);
-            return PartialView("FilteredProducts", filterProducts);
+                List<Product> filterProducts = ProductsRepository.FilterByCategory(categories);
+                return PartialView("FilteredProducts", filterProducts);
 
             }
             else
