@@ -234,15 +234,15 @@ ul, ol {
 \*----------------------------*/
 
 #top-header {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     background-color: #1E1F29;
 }
 
 .header-links li {
     display: inline-block;
     margin-right: 15px;
-    font-size: 12px;
+    font-size: 10px;
 }
 
     .header-links li:last-child {
