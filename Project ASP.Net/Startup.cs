@@ -60,7 +60,6 @@ namespace Project_ASP.Net
             services.AddControllersWithViews();
 
             services.AddScoped<IProductsRepository, ProductsRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 

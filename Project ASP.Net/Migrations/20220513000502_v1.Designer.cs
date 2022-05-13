@@ -10,7 +10,7 @@ using Project_ASP.Net.Models;
 namespace Project_ASP.Net.Migrations
 {
     [DbContext(typeof(ASPContext))]
-    [Migration("20220512191951_v1")]
+    [Migration("20220513000502_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,11 +226,13 @@ namespace Project_ASP.Net.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("picture")
                         .IsRequired()

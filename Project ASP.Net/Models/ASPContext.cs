@@ -9,6 +9,11 @@ namespace Project_ASP.Net.Models
         public ASPContext(DbContextOptions options) : base(options)
         {
         }
+
+        public ASPContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source =.; Initial Catalog = Asp; Integrated Security = True");

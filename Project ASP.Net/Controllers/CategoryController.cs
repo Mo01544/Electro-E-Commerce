@@ -5,7 +5,7 @@ using Project_ASP.Net.ViewModel;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Project_ASP.Net.Repository;
+using Project_ASP.Net.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using System;
 

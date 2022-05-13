@@ -52,8 +52,8 @@ namespace Project_ASP.Net.Migrations
                 {
                     Cat_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     picture = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
