@@ -1,20 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories.Categories;
 using Project_ASP.Net.ViewModel;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Project_ASP.Net.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using System;
+using System.IO;
 
 namespace Project_ASP.Net.Controllers
 {
     public class CategoryController : Controller
     {
-        ICategoriesRepository cateRepository;
-        IWebHostEnvironment webHostEnvironment;
+        private ICategoriesRepository cateRepository;
+        private IWebHostEnvironment webHostEnvironment;
 
         public CategoryController(ICategoriesRepository catesRepository, IWebHostEnvironment webHostEnvironment)
         {
@@ -22,23 +19,10 @@ namespace Project_ASP.Net.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult getCategories()
-        {
-            return View(cateRepository.GetAll());
-        }
-        public IActionResult getCategoryById(int id)
-        {
-            return View(cateRepository.FindById(id));
-        }
-        public IActionResult CrudCategory(Category cate)
-        {
-
-            return View(cateRepository.GetAll());
-        }
-        public IActionResult AddCategory()
-        {
-            return View(new Category());
-        }
+        public IActionResult getCategories() => View(cateRepository.GetAll());
+        public IActionResult getCategoryById(int id) => View(cateRepository.FindById(id));
+        public IActionResult CrudCategory(Category cate) => View(cateRepository.GetAll());
+        public IActionResult AddCategory() => View(new Category());
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaveAddCategory(CategoryViewModel cat)
@@ -52,7 +36,7 @@ namespace Project_ASP.Net.Controllers
             string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
             string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
             string imgPath = Path.Combine(categoriesImages, UniqueimgName);
-            using (var fileStream = new FileStream(imgPath, FileMode.Create))
+            using (FileStream fileStream = new FileStream(imgPath, FileMode.Create))
             {
                 cat.Picture.CopyTo(fileStream);
                 fileStream.Close();
@@ -84,7 +68,7 @@ namespace Project_ASP.Net.Controllers
         }
         public IActionResult DeleteCategory(int id)
         {
-   
+
             cateRepository.Delete(id);
             return RedirectToAction("CrudCategory");
 

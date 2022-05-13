@@ -1,6 +1,7 @@
 ﻿using Project_ASP.Net.Models;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Project_ASP.Net.Repositories.Categories
 {
     public class CategoriesRepository : ICategoriesRepository
