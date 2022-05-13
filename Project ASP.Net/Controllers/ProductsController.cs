@@ -5,26 +5,17 @@ using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories;
 using Project_ASP.Net.Repositories.Categories;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Project_ASP.Net.Repositories.Categories;
 
 namespace Project_ASP.Net.Controllers
 {
     public class ProductsController : Controller
     {
         private IProductsRepository ProductsRepository;
-        private ICategoryRepository categoryRepository;
+        private ICategoriesRepository categoryRepository;
         private IWebHostEnvironment webHostEnvironment;
         private IFilterPanelCategoriesRepository filterCategoryRepository;
 
-        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository);
-
-
-        IProductsRepository ProductsRepository;
-        ICategoriesRepository categoryRepository;
-        IWebHostEnvironment webHostEnvironment;
-        public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
+        public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
         {
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;

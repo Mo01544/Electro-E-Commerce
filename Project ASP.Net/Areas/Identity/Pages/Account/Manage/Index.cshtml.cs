@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Project_ASP.Net.Models;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
 {
@@ -53,8 +51,8 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            string userName = await _userManager.GetUserNameAsync(user);
+            string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
 
@@ -69,7 +67,7 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -81,7 +79,7 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -93,9 +91,9 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var firstName = user.FirstName;
-            var lastName = user.LastName;
+            string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            string firstName = user.FirstName;
+            string lastName = user.LastName;
 
             if (Input.FirstName != firstName)
             {
@@ -110,7 +108,7 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
             }
             if (Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                IdentityResult setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
@@ -119,11 +117,11 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account.Manage
             }
             if (Request.Form.Files.Count > 0)
             {
-                var file = Request.Form.Files.FirstOrDefault();
+                Microsoft.AspNetCore.Http.IFormFile file = Request.Form.Files.FirstOrDefault();
 
                 //check file size and extension
 
-                using (var dataStream = new MemoryStream())
+                using (MemoryStream dataStream = new MemoryStream())
                 {
                     await file.CopyToAsync(dataStream);
                     user.ProfilePicture = dataStream.ToArray();

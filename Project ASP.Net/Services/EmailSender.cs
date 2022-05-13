@@ -25,7 +25,7 @@ namespace ASPNetCoreIdentityEmailDemo.Services
             message.Body = "<html><body> " + htmlMessage + " </body></html>";
             message.IsBodyHtml = true;
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(fromMail, fromPassword),
