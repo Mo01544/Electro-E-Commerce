@@ -12,8 +12,8 @@ namespace Project_ASP.Net.Repositories
 
     public class ProductsRepository : IProductsRepository
     {
-        ASPContext aSPContext;
-        IWebHostEnvironment webHostEnvironment;
+        private ASPContext aSPContext;
+        private IWebHostEnvironment webHostEnvironment;
 
         public ProductsRepository(ASPContext _aSPContext, IWebHostEnvironment _webHostEnvironment)
         {
@@ -36,7 +36,7 @@ namespace Project_ASP.Net.Repositories
                 oldProduct.image = NewProduct.image;
                 oldProduct.Discount = NewProduct.Discount;
                 oldProduct.Stock = NewProduct.Stock;
-                oldProduct.Product_Brand= NewProduct.Product_Brand;
+                oldProduct.Product_Brand = NewProduct.Product_Brand;
 
 
                 return aSPContext.SaveChanges();
@@ -47,16 +47,16 @@ namespace Project_ASP.Net.Repositories
                 return 0;
             }
         }
-        public int AddNewProduct(Product NewProduct,IFormFile image)
+        public int AddNewProduct(Product NewProduct, IFormFile image)
         {
             string uploadfolder = Path.Combine(webHostEnvironment.WebRootPath, "image");
-            string uniquefilename=Guid.NewGuid().ToString()+"_"+image.FileName;
-            string filepath=Path.Combine(uploadfolder, uniquefilename);
-            using (var fileStream = new FileStream(filepath, FileMode.Create))
-			{
+            string uniquefilename = Guid.NewGuid().ToString() + "_" + image.FileName;
+            string filepath = Path.Combine(uploadfolder, uniquefilename);
+            using (FileStream fileStream = new FileStream(filepath, FileMode.Create))
+            {
                 image.CopyTo(fileStream);
                 fileStream.Close();
-			}
+            }
             aSPContext.Products.Add(NewProduct);
             return aSPContext.SaveChanges();
         }
@@ -75,12 +75,21 @@ namespace Project_ASP.Net.Repositories
             }
         }
 
+        public List<FilterBrandData> GetBrands() => aSPContext.Products.GroupBy(x => x.Product_Brand).Select(x => new FilterBrandData { BrandName = x.Key, NumberOfProduct = x.Count() }).ToList();
 
-
-
-
-
-
-
+        public List<Product> FilterByCategory(List<string> categories)
+        {
+            List<Product> products = (from product in aSPContext.Products
+                                      where categories.Contains(product.Category.Name)
+                                      select product).ToList();
+            return products;
+        }
+        public List<Product> FilterByBrand(List<string> brands)
+        {
+            List<Product> products = (from product in aSPContext.Products
+                                      where brands.Contains(product.Product_Brand)
+                                      select product).ToList();
+            return products;
+        }
     }
 }
