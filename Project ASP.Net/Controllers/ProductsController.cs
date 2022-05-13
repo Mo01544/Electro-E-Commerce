@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories;
+using Project_ASP.Net.Repositories.Categories;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +13,12 @@ namespace Project_ASP.Net.Controllers
 {
     public class ProductsController : Controller
     {
+        private IProductsRepository ProductsRepository;
+        private ICategoryRepository categoryRepository;
+        private IWebHostEnvironment webHostEnvironment;
+        private IFilterPanelCategoriesRepository filterCategoryRepository;
+
+        public ProductsController(IProductsRepository _productsRepository, ICategoryRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
  
      
          IProductsRepository ProductsRepository;
@@ -20,14 +29,17 @@ namespace Project_ASP.Net.Controllers
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;
             this.webHostEnvironment = _webHostEnvironment;
+            filterCategoryRepository = _filterCategoryRepository;
 
         }
 
 
-        public IActionResult GetAllProducts()
+        public IActionResult GetAllProducts(List<string> filters)
         {
             List<Product> productList = ProductsRepository.GetProducts();
-            return View(productList);
+            List<FilterBrandData> brandDatas = ProductsRepository.GetBrands();
+            List<FilterPanalCategoryData> categories = filterCategoryRepository.GetAll();
+            return View(new StoreViewModel() { Categories = categories, Brands = brandDatas, Products = productList, filters = filters });
         }
 
 
@@ -51,12 +63,12 @@ namespace Project_ASP.Net.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddProduct(Product Newproduct,IFormFile image)
+        public IActionResult AddProduct(Product Newproduct, IFormFile image)
         {
             if (ModelState.IsValid == true)
             {
                 Newproduct.image = image.ToString();
-                ProductsRepository.AddNewProduct(Newproduct,image);
+                ProductsRepository.AddNewProduct(Newproduct, image);
                 return RedirectToAction("GetAllProducts");
             }
             else
@@ -96,7 +108,35 @@ namespace Project_ASP.Net.Controllers
             }
         }
 
+        public IActionResult FilterProductByCategory(List<string> categories)
+        {
+            if(categories.Count > 0)
+            {
+            List<Product> filterProducts = ProductsRepository.FilterByCategory(categories);
+            return PartialView("FilteredProducts", filterProducts);
 
+            }
+            else
+            {
+                List<Product> allProducts = ProductsRepository.GetProducts();
+                return PartialView("FilteredProducts", allProducts);
+            }
+        }
+
+        public IActionResult FilterCategoryByBrand(List<string> brands)
+        {
+            if (brands.Count > 0)
+            {
+                List<Product> filterProducts = ProductsRepository.FilterByBrand(brands);
+                return PartialView("FilteredProducts", filterProducts);
+
+            }
+            else
+            {
+                List<Product> allProducts = ProductsRepository.GetProducts();
+                return PartialView("FilteredProducts", allProducts);
+            }
+        }
 
 
     }
