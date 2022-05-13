@@ -2014,17 +2014,18 @@ textarea.input {
 
 #bottom-footer {
     background: #1E1F29;
+    margin: 0px 0px 20px;
 }
 
 .footer {
-    margin: 30px 0px;
+    margin: 20px 0px;
 }
 
     .footer .footer-title {
         color: #FFF;
         text-transform: uppercase;
         font-size: 18px;
-        margin: 0px 0px 30px;
+        margin: 0px 0px 20px;
     }
 
 .footer-links li + li {
