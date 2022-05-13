@@ -77,3 +77,10 @@ aside div.aside {
     width: 40px;
     object-fit: cover;
 }
+
+#top-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #1e1f29;
+}
+
