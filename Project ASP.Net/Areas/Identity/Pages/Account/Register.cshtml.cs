@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -7,12 +14,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Project_ASP.Net.Models;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace Project_ASP.Net.Areas.Identity.Pages.Account
 {
@@ -74,15 +75,15 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    string callbackUrl = Url.Page(
+                    var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
@@ -101,7 +102,7 @@ namespace Project_ASP.Net.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (IdentityError error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }

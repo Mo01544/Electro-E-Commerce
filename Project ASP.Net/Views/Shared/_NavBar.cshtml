@@ -8,17 +8,7 @@
 						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
-					<ul class="header-links pull-right">
-						@if (User.Identity.IsAuthenticated == false)
-                        {
-						<li><a asp-controller="Register" asp-action="Register"><i ></i> Register</a></li>
-						<li><a asp-controller="Register" asp-action="Login"><i class="fa fa-user-o"></i> Login</a></li>
-						}
-						else{
-						<li><a asp-controller="Register" asp-action=""><i ></i> WelCome @User.Identity.Name</a></li>
-						<li><a asp-controller="Register" asp-action="Logout"><i ></i> Log Out</a></li>
-						}
-					</ul>
+					
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
