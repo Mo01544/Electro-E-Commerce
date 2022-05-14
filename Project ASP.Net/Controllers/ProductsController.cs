@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories.Categories;
 using Project_ASP.Net.Repositories;
 
+using Project_ASP.Net.Repositories.Categories;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.IO;
-using System.Linq;
-using Project_ASP.Net.ViewModel;
-using X.PagedList;
 
 
 namespace Project_ASP.Net.Controllers
@@ -21,18 +17,34 @@ namespace Project_ASP.Net.Controllers
         ICategoriesRepository categoryRepository;
         IWebHostEnvironment webHostEnvironment;
         public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
+        private IProductsRepository ProductsRepository;
+        private ICategoriesRepository categoryRepository;
+        private IWebHostEnvironment webHostEnvironment;
+        private IFilterPanelCategoriesRepository filterCategoryRepository;
+
+        public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
         {
             ProductsRepository = _productsRepository;
             categoryRepository = _categoryRepository;
             webHostEnvironment = _webHostEnvironment;
+            this.webHostEnvironment = _webHostEnvironment;
+            filterCategoryRepository = _filterCategoryRepository;
+
         }
         public IActionResult GetAllProducts(int? page)
+
+
+        public IActionResult GetAllProducts(List<string> filters)
         {
             var pageNumber = page ?? 1;
             int pageSize = 9;
 
             var OnPageOfProduct = ProductsRepository.GetProducts().ToPagedList(pageNumber, pageSize);
             return View(OnPageOfProduct);
+            List<Product> productList = ProductsRepository.GetProducts();
+            List<FilterBrandData> brandDatas = ProductsRepository.GetBrands();
+            List<FilterPanalCategoryData> categories = filterCategoryRepository.GetAll();
+            return View(new StoreViewModel() { Categories = categories, Brands = brandDatas, Products = productList, filters = filters });
         }
 
 
@@ -56,6 +68,8 @@ namespace Project_ASP.Net.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddProduct(ProductViewModel Newproduct)
         { 
+        public IActionResult AddProduct(Product Newproduct, IFormFile image)
+        {
             if (ModelState.IsValid == true)
 
             {
@@ -83,6 +97,19 @@ namespace Project_ASP.Net.Controllers
             ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("AddProduct", Newproduct);   
         }
+                Newproduct.image = image.ToString();
+                ProductsRepository.AddNewProduct(Newproduct, image);
+                return RedirectToAction("GetAllProducts");
+            }
+            else
+            {
+                ViewData["CategoryList"] = categoryRepository.GetAll();
+                return View("AddProduct", Newproduct);
+            }
+        }
+
+
+
         [HttpGet]
         public IActionResult EditProduct(int id)
         {
@@ -90,6 +117,7 @@ namespace Project_ASP.Net.Controllers
             if (oldProduct != null)
             {
 
+                ViewData["CategoryList"] = categoryRepository.GetAll();
                 ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("EditProduct", oldProduct);
             }
@@ -112,6 +140,43 @@ namespace Project_ASP.Net.Controllers
         {
             var CurrentProduct = ProductsRepository.CurrentProducts(ProductName);
             return View("GetAllProducts", CurrentProduct);
+            else
+            {
+                ViewData["CategoryList"] = categoryRepository.GetAll();
+                return View("EditProduct", Newproduct);
+            }
         }
+
+        public IActionResult FilterProductByCategory(List<string> categories)
+        {
+            if (categories.Count > 0)
+            {
+                List<Product> filterProducts = ProductsRepository.FilterByCategory(categories);
+                return PartialView("FilteredProducts", filterProducts);
+
+            }
+            else
+            {
+                List<Product> allProducts = ProductsRepository.GetProducts();
+                return PartialView("FilteredProducts", allProducts);
+            }
+        }
+
+        public IActionResult FilterCategoryByBrand(List<string> brands)
+        {
+            if (brands.Count > 0)
+            {
+                List<Product> filterProducts = ProductsRepository.FilterByBrand(brands);
+                return PartialView("FilteredProducts", filterProducts);
+
+            }
+            else
+            {
+                List<Product> allProducts = ProductsRepository.GetProducts();
+                return PartialView("FilteredProducts", allProducts);
+            }
+        }
+
+
     }
 }

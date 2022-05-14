@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Project_ASP.Net.Models
 {
@@ -12,12 +11,12 @@ namespace Project_ASP.Net.Models
         [Key]
         public int Cat_Id { get; set; }
         [Required(ErrorMessage = "Category Name Is Requierd")]
-        //[MinLength(length:3)]
-        //[MaxLength(length:30)]
-        [Range(minimum: 5, maximum: 30, ErrorMessage = "Category Name Must Between 5,30")]
+        [MinLength(length: 3, ErrorMessage = "must be 3 letter or more")]
+        [MaxLength(length: 25, ErrorMessage = "must be less than 25 letter")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Description Is Requierd")]
-        [Range(maximum: 100, minimum: 20, ErrorMessage = "Description Must Between 20 ,100")]
+        [MinLength(length: 20, ErrorMessage = "must be 20 letter or more")]
+        [MaxLength(length: 100, ErrorMessage = "must be less than 100 letter")]
         public string Description { get; set; }
         [Required(ErrorMessage = "Picture Is Requierd")]
         [RegularExpression(pattern: @"\w+\.(jpg|png|jpeg)", ErrorMessage = "Picture Must End Path (.jpg,.png,.jpeg)")]

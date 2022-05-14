@@ -1,6 +1,7 @@
 ﻿using Project_ASP.Net.Models;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Project_ASP.Net.Repositories.Categories
 {
     public class CategoriesRepository : ICategoriesRepository
@@ -15,8 +16,15 @@ namespace Project_ASP.Net.Repositories.Categories
         public int Delete(int id)
         {
             Category oldCategory = FindById(id);
-            db.Categories.Remove(oldCategory);
-            return db.SaveChanges();
+            if (oldCategory != null)
+            {
+                db.Categories.Remove(oldCategory);
+                return db.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public int Edit(int id, Category cate)

@@ -11,6 +11,9 @@ namespace Project_ASP.Net.Repositories
         int EditProduct(int id, Product NewProduct);
         List<Product> GetProducts();
         Product GetProductById(int id);
+        List<FilterBrandData> GetBrands();
+        List<Product> FilterByCategory(List<string> categories);
+        List<Product> FilterByBrand(List<string> brands);
         //search
         List<Product> CurrentProducts(string ProductName);
     }
