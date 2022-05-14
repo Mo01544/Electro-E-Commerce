@@ -3,7 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 <head>
-    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css" />
 </head>
 <!-- HEADER -->
 <header>
@@ -42,10 +42,10 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                       <form asp-action="Search" asp-controller="Products">
-									<input  class="input" placeholder="Search here"  name="ProductName">
-									<button type="submit" class="search-btn">Search</button>
-					    </form>
+                        <form >
+                            <input class="input" id="search-input" placeholder="Search here" name="ProductName">
+                            <button type="button" class="search-btn" onclick="search()">Search</button>
+                        </form>
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
