@@ -10,8 +10,8 @@ using Project_ASP.Net.Models;
 namespace Project_ASP.Net.Migrations
 {
     [DbContext(typeof(ASPContext))]
-    [Migration("20220513131325_migratty")]
-    partial class migratty
+    [Migration("20220513225902_ElectroMigrat")]
+    partial class ElectroMigrat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
