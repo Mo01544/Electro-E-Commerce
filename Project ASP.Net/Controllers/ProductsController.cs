@@ -5,9 +5,12 @@ using Project_ASP.Net.Models;
 using Project_ASP.Net.Repositories.Categories;
 using Project_ASP.Net.Repositories;
 
-using Project_ASP.Net.Repositories.Categories;
-using System.Collections.Generic;
 
+using System.Collections.Generic;
+using X.PagedList;
+using Project_ASP.Net.ViewModel;
+using System.IO;
+using System;
 
 namespace Project_ASP.Net.Controllers
 {
@@ -16,10 +19,6 @@ namespace Project_ASP.Net.Controllers
          IProductsRepository ProductsRepository;
         ICategoriesRepository categoryRepository;
         IWebHostEnvironment webHostEnvironment;
-        public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment)
-        private IProductsRepository ProductsRepository;
-        private ICategoriesRepository categoryRepository;
-        private IWebHostEnvironment webHostEnvironment;
         private IFilterPanelCategoriesRepository filterCategoryRepository;
 
         public ProductsController(IProductsRepository _productsRepository, ICategoriesRepository _categoryRepository, IWebHostEnvironment _webHostEnvironment, IFilterPanelCategoriesRepository _filterCategoryRepository)
@@ -31,10 +30,10 @@ namespace Project_ASP.Net.Controllers
             filterCategoryRepository = _filterCategoryRepository;
 
         }
-        public IActionResult GetAllProducts(int? page)
+        
 
 
-        public IActionResult GetAllProducts(List<string> filters)
+        public IActionResult GetAllProducts(int? page, List<string> filters)
         {
             var pageNumber = page ?? 1;
             int pageSize = 9;
@@ -66,9 +65,9 @@ namespace Project_ASP.Net.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+       
+       
         public IActionResult AddProduct(ProductViewModel Newproduct)
-        { 
-        public IActionResult AddProduct(Product Newproduct, IFormFile image)
         {
             if (ModelState.IsValid == true)
 
@@ -97,16 +96,7 @@ namespace Project_ASP.Net.Controllers
             ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("AddProduct", Newproduct);   
         }
-                Newproduct.image = image.ToString();
-                ProductsRepository.AddNewProduct(Newproduct, image);
-                return RedirectToAction("GetAllProducts");
-            }
-            else
-            {
-                ViewData["CategoryList"] = categoryRepository.GetAll();
-                return View("AddProduct", Newproduct);
-            }
-        }
+              
 
 
 
@@ -118,7 +108,7 @@ namespace Project_ASP.Net.Controllers
             {
 
                 ViewData["CategoryList"] = categoryRepository.GetAll();
-                ViewData["CategoryList"] = categoryRepository.GetAll();
+               
                 return View("EditProduct", oldProduct);
             }
             return RedirectToAction("GetAllProducts");
@@ -140,11 +130,7 @@ namespace Project_ASP.Net.Controllers
         {
             var CurrentProduct = ProductsRepository.CurrentProducts(ProductName);
             return View("GetAllProducts", CurrentProduct);
-            else
-            {
-                ViewData["CategoryList"] = categoryRepository.GetAll();
-                return View("EditProduct", Newproduct);
-            }
+           
         }
 
         public IActionResult FilterProductByCategory(List<string> categories)
