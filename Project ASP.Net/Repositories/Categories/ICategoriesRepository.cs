@@ -4,7 +4,6 @@ using Project_ASP.Net.ViewModel;
 
 namespace Project_ASP.Net.Repositories.Categories
 {
-
     public interface ICategoriesRepository
     {
         int Delete(int id);
@@ -14,5 +13,4 @@ namespace Project_ASP.Net.Repositories.Categories
         int Insert(Category d);
 
     }
-
 }

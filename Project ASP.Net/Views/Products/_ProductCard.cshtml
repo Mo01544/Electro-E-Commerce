@@ -1,63 +1,50 @@
-﻿
-		@model Product
+﻿@model Product
 
+<!-- product -->
+<div class="product" style="width:300px">
+	<div class="product-img">
+		<div style="text-align:center; ">
+			<img src="/img/@Model.image" style="width:170px;height:290px">
+		</div>
+		<div class="product-label">
+			<span class="sale">@Model.Discount %</span>
+			<span class="new">NEW</span>
+		</div>
+	</div>
+	<div class="product-body">
+		<div style="height:120px">
+			<h3 class="product-name"><a href="#">@Model.Pro_Name</a></h3>
+		</div>
+		<h4 class="product-price">@Model.Unit_Price</h4>
+		<div class="product-btns">
+			@if (User.IsInRole("Admin") == true)
+				{
+			<div class="product-btns">
+				<a class="btn btn-warning" href="/Products/EditProduct/@Model.Pro_Id"><span class="tooltipp">Edit</span></a>
 
-							<!-- product -->
-								<div class="product" style="width:300px">
-										<div class="product-img">
-											<div style="text-align:center; ">
-										<img src="/img/@Model.image" style="width:170px;height:290px">
-										</div>
-										<div class="product-label">
-											<span class="sale">@Model.Discount %</span>
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<div style="height:120px">
-										<h3 class="product-name"><a href="#">@Model.Pro_Name</a></h3>
-										</div>
-										<h4 class="product-price">@Model.Unit_Price</h4>
-										<div class="product-btns">
+				<a class="btn btn-danger" href="/Products/Delete/@Model.Pro_Id"><span class="tooltipp">Delete</span></a>
 
-
-										@*@if (User.IsRole("Admin") == true)
-										{*@
-										<div class="product-btns">
-											<a class="btn btn-warning" href="/Products/EditProduct/@Model.Pro_Id" ><span class="tooltipp">Edit</span></a>
-
-											<a class="btn btn-danger"  href="/Products/Delete/@Model.Pro_Id"><span class="tooltipp">Delete</span></a>
-
-											<a class="btn btn-info" href="/Products/Details/@Model.Pro_Id" ><i class="fa fa-eye"></i><span class="tooltipp">View Details</span></a>
-										</div>
-										@*}*@
-
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><a class="btn" href="/Products/Details/@Model.Pro_Id" ><i class="fa fa-eye"></a></i><span class="tooltipp">quick view</span></button>
-										</div>
-
-									</div>
-										</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-
-
-								</div>
-							
-							
-							<!-- /product -->
-				
-
-
-
+				@*<a class="btn btn-info" href="/Products/Details/@Model.Pro_Id"><i class="fa fa-eye"></i><span class="tooltipp">View Details</span></a>*@
+			</div>
+			}
+			<div class="product-rating">
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+			</div>
+			<div class="product-btns">
+				<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+				<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+				<button class="quick-view"><a class="btn btn-secondary" href="/Products/Details/@Model.Pro_Id"><i class="fa fa-eye"></a></i><span class="tooltipp">quick view</span></button>
+			</div>
+		</div>
+	</div>
+	@if (User.IsInRole("User") == true){
+		<div class="add-to-cart">
+								<a class="add-to-cart-btn btn pt-3" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
+	</div>
+	}
+</div>
+<!-- /product -->

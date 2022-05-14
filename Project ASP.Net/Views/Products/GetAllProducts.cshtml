@@ -1,18 +1,175 @@
-﻿@{
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+
+@{
     ViewData["Title"] = "GetAllProducts";
 }
-@model List<Product>
+@model StoreViewModel
 
-<a class="btn btn-primary" href="/Products/AddProduct">Add New Product</a>
-<div id="store" class="col-md-12">
-<div class="row">
-@foreach (Product item in Model)
-{
- <div class="col-md-4 col-xs-6 mb-5">   
-<partial name="_ProductCard" model="item"/>
-  </div>
-}
-</div>
+<div class="row p-3">
+    <div class="col-2">
+        <aside class="d-flex flex-column gap-3">
+            <!-- Categories aside Widget -->
+            <div class="aside">
+                <h3 class="aside-title">Categories</h3>
+                <div class="checkbox-filter">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <div class="input-checkbox form-check">
+                            @if (Model.filters.Any(x => x.ToUpper().Trim() == @category.CategoryName.ToUpper().Trim()))
+                            {
+                                <input class="form-check-input chks" type="checkbox" onchange="filterByCategory()" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()" checked />
+
+                            }
+                            else
+                            {
+                                <input class="form-check-input chks" type="checkbox" onchange="filterByCategory(this)" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()">
+
+                            }
+                            <label class="form-check-label" for="category-1">
+                                <span class="d-flex align-items-center flex-nowrap text-uppercase">
+                                    @category.CategoryName
+                                    <small class="ml-1">(@category.NumberOfProducts)</small>
+                                </span>
+                            </label>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <!-- /aside Widget -->
+            <!-- Price aside Widget -->
+            <div class="aside">
+                <h3 class="aside-title">Price</h3>
+                <div class="price-filter">
+                    <div class="d-flex flex-column">
+                        <div class="mb-2">
+                            <spam>From</spam>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" min="1.00" max="10000.00" value="1.00" class="form-control" />
+                            </div>
+                        </div>
+                        <div>
+                            <span>To</span>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" min="1.00" max="1000.00" value="9999.99" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /aside Widget -->
+            <!-- Brand aside Widget -->
+            <div class="aside">
+                <h3 class="aside-title">Brands</h3>
+                <div class="checkbox-filter">
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <div class="form-check">
+                            @if (Model.filters.Any(x => x == @brand.BrandName.Trim()))
+                            {
+                                <input class="form-check-input" onchange="filterByBrand()" type="checkbox" value="@brand.BrandName.Trim()" id="@brand.BrandName.Trim()" checked />
+                            }
+                            else
+                            {
+                                <input class="form-check-input brand-chk" onchange="filterByBrand()" type="checkbox" value="@brand.BrandName.Trim()" id="@brand.BrandName.Trim()">
+
+                            }
+                            <label class="form-check-label" for="brand-1">
+                                <span class="d-flex align-items-center flex-nowrap fw-bold">
+                                    @brand.BrandName
+                                    <small class="ml-1">(@brand.NumberOfProduct)</small>
+                                </span>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- /aside Widget -->
+        </aside>
+    </div>
+    <div class="col-9">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            @if (User.IsInRole("Admin") == true)
+            {
+                <a class="btn btn-secondary mt-4 offset-5" href="/Products/AddProduct">Add New Product</a>
+            }
+            <div id="store" class="col-md-12">
+                <div class="d-flex flex-wrap justify-content-between align-items-center" id="store-products">
+                    <partial name="FilteredProducts" model="@Model.Products" />
+                </div>
+            </div>
+            <div style="height:70px"></div>
+        </div>
+    </div>
+    @if (@Model.Products.Count() >= 9)
+    {
+        @Html.PagedListPager((IPagedList)Model.Products, page => Url.Action("GetAllProducts", new { page = page }),
+    new PagedListRenderOptions
+    {
+    DisplayItemSliceAndTotal = true,
+    ContainerDivClasses = new[] { "navigation" },
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" },
+    })
+    }
+    else
+    {
+        <div>
+            <a class="btn btn-primary" href="/Products/GetAllProducts?page=2">LastPage</a>
+        </div>
+    }
 </div>
 
-<div style="height:70px"></div>
+
+
+@section Scripts {
+<script>
+
+        function filterByCategory() {
+            $('#store-products').html('')
+            let selectedCategories = [];
+        const allCategories = document.querySelectorAll(".chks");
+        allCategories.forEach((item)=>{
+            if(item.checked){
+                selectedCategories.push(item.value);
+            }
+        });
+        var categoriesQry = selectedCategories.map((item,index)=>{
+            return `categories[${index}]=${item}`
+        }).join('&');
+        $.ajax({
+            url: `/Products/FilterProductByCategory?${categoriesQry}`,
+            success: function (products) {
+                $('#store-products').html(products)
+            }
+        });
+    }
+
+    function filterByBrand() {
+         $('#store-products').html('')
+            let selectedCategories = [];
+        const allCategories = document.querySelectorAll(".brand-chk");
+        allCategories.forEach((item)=>{
+            if(item.checked){
+                selectedCategories.push(item.value);
+            }
+        });
+        var brandsQry = selectedCategories.map((item,index)=>{
+            return `brands[${index}]=${item}`
+        }).join('&');
+        console.log(brandsQry);
+        $.ajax({
+            url: `/Products/FilterCategoryByBrand?${brandsQry}`,
+            success: function (products) {
+                $('#store-products').html(products)
+            }
+        });
+    }
+</script>
+    }

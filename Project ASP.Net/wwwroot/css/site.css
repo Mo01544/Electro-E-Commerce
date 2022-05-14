@@ -1,15 +1,15 @@
-﻿/*General Stying*/ 
-* {
-    box-sizing: border-box;
+﻿
+/* Custom Styles */
+/*.profile-picture {
+    height: 295px;
+    width: 295px;
+    object-fit: cover;
 }
 
-html {
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    color: #333;
+.avatar {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
 }
 
 h1, h2, h3, h4, h5, h6 {

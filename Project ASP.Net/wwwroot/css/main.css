@@ -1,5 +1,14 @@
 
+/* ==========================================================================
+   #FONT
+   ========================================================================== */
+.font-robo {
+  font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+}
 
+.font-poppins {
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+}
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -8,21 +17,47 @@
 @font-face {
   font-family: Montserrat-Regular;
   src: url('../fonts/montserrat/Montserrat-Regular.ttf'); 
+/* ==========================================================================
+   #GRID
+   ========================================================================== */
+.row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 @font-face {
   font-family: Montserrat-Bold;
   src: url('../fonts/montserrat/Montserrat-Bold.ttf'); 
+.row-space {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 @font-face {
   font-family: Montserrat-ExtraBold;
   src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf'); 
+.col-2 {
+  width: -webkit-calc((100% - 30px) / 2);
+  width: -moz-calc((100% - 30px) / 2);
+  width: calc((100% - 30px) / 2);
 }
 
 @font-face {
   font-family: Montserrat-Medium;
   src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
+@media (max-width: 767px) {
+  .col-2 {
+    width: 100%;
+}
 }
 
 
@@ -33,12 +68,25 @@
 * {
 	margin: 15px; 
 	padding: 0px; 
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+/**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 body, html {
 	height: 100%;
 	font-family: Montserrat-Regular, sans-serif;
+* {
+  padding: 0;
+  margin: 0;
 }
 
 /*---------------------------------------------*/
@@ -52,20 +100,51 @@ a {
 	-webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 a:focus {
 	outline: none !important;
+/* ==========================================================================
+   #RESET
+   ========================================================================== */
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+body,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, dd, ol, ul,
+figure,
+hr,
+fieldset, legend {
+  margin: 0;
+  padding: 0;
 }
 
 a:hover {
 	text-decoration: none;
 	color: #57b846;
+/**
+ * Remove trailing margins from nested lists.
+ */
+li > ol,
+li > ul {
+  margin-bottom: 0;
 }
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
+/**
+ * Remove default table spacing.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 p {
@@ -74,6 +153,14 @@ p {
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+fieldset {
+  min-width: 0;
+  /* [1] */
+  border: 0;
 }
 
 ul, li {
@@ -84,60 +171,112 @@ ul, li {
 
 /*---------------------------------------------*/
 input {
+button {
 	outline: none;
+  background: none;
 	border: none;
 }
 
 textarea {
   outline: none;
   border: none;
+/* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+.page-wrapper {
+  min-height: 100vh;
 }
 
 textarea:focus, input:focus {
   border-color: transparent !important;
+body {
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 input::-webkit-input-placeholder { color: #999999; }
 input:-moz-placeholder { color: #999999; }
 input::-moz-placeholder { color: #999999; }
 input:-ms-input-placeholder { color: #999999; }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
 
 textarea::-webkit-input-placeholder { color: #999999; }
 textarea:-moz-placeholder { color: #999999; }
 textarea::-moz-placeholder { color: #999999; }
 textarea:-ms-input-placeholder { color: #999999; }
+h1 {
+  font-size: 36px;
+}
 
 /*---------------------------------------------*/
 button {
 	outline: none !important;
 	border: none;
 	background: transparent;
+h2 {
+  font-size: 30px;
 }
 
 button:hover {
 	cursor: pointer;
+h3 {
+  font-size: 24px;
 }
 
 iframe {
 	border: none !important;
+h4 {
+  font-size: 18px;
 }
 
+h5 {
+  font-size: 15px;
+}
 
+h6 {
+  font-size: 13px;
+}
 
+/* ==========================================================================
+   #BACKGROUND
+   ========================================================================== */
+.bg-blue {
+  background: #2c6ed5;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ Contact 1 ]*/
+.bg-red {
+  background: #fa4251;
+}
 
 .contact1 {
   width: 100%;
   min-height: 100%;
   padding: 15px;
+.bg-gra-01 {
+  background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
+  background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
+}
 
   background: #009bff;
   background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
   background: -o-linear-gradient(left, #0072ff, #00c6ff);
   background: -moz-linear-gradient(left, #0072ff, #00c6ff);
   background: linear-gradient(left, #0072ff, #00c6ff);
+.bg-gra-02 {
+  background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
+  background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+}
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -147,6 +286,11 @@ iframe {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+/* ==========================================================================
+   #SPACING
+   ========================================================================== */
+.p-t-100 {
+  padding-top: 100px;
 }
 
 .container-contact1 {
@@ -154,6 +298,9 @@ iframe {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
+.p-t-130 {
+  padding-top: 130px;
+}
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -163,18 +310,27 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+.p-t-180 {
+  padding-top: 180px;
+}
 
   padding: 90px 130px 88px 148px;
+.p-t-20 {
+  padding-top: 20px;
 }
 
 /*------------------------------------------------------------------
 [  ]*/
 .contact1-pic {
   width: 296px;
+.p-t-15 {
+  padding-top: 15px;
 }
 
 .contact1-pic img {
   max-width: 100%;
+.p-t-10 {
+  padding-top: 10px;
 }
 
 
@@ -182,6 +338,8 @@ iframe {
 [  ]*/
 .contact1-form {
   width: 390px;
+.p-t-30 {
+  padding-top: 30px;
 }
 
 .contact1-form-title {
@@ -192,12 +350,16 @@ iframe {
   line-height: 1.2;
   text-align: center;
   padding-bottom: 44px;
+.p-b-100 {
+  padding-bottom: 100px;
 }
 
 input.input1 {
   height: 50px;
   border-radius: 25px;
   padding: 0 30px;
+.m-r-45 {
+  margin-right: 45px;
 }
 input.input1 + .shadow-input1 {
   border-radius: 25px;
@@ -207,6 +369,11 @@ textarea.input1 {
   min-height: 150px;
   border-radius: 25px;
   padding: 12px 30px;
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+  margin: 0 auto;
 }
 textarea.input1 + .shadow-input1 {
   border-radius: 25px;
@@ -218,6 +385,8 @@ textarea.input1 + .shadow-input1 {
   width: 100%;
   z-index: 1;
   margin-bottom: 20px;
+.wrapper--w960 {
+  max-width: 960px;
 }
 
 .input1 {
@@ -228,6 +397,8 @@ textarea.input1 + .shadow-input1 {
   font-size: 15px;
   line-height: 1.5;
   color: #666666;
+.wrapper--w780 {
+  max-width: 780px;
 }
 
 .shadow-input1 {
@@ -241,17 +412,38 @@ textarea.input1 + .shadow-input1 {
   height: 100%;
   box-shadow: 0px 0px 0px 0px;
   color: rgba(87,184,70, 0.5);
+.wrapper--w680 {
+  max-width: 680px;
 }
 
 .input1:focus + .shadow-input1 {
   -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
   animation: anim-shadow 0.5s ease-in-out forwards;
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 50px;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
 }
 
 @-webkit-keyframes anim-shadow {
   to {
     box-shadow: 0px 0px 80px 30px;
     opacity: 0;
+.btn--radius {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   }
 }
 
@@ -259,6 +451,10 @@ textarea.input1 + .shadow-input1 {
   to {
     box-shadow: 0px 0px 80px 30px;
     opacity: 0;
+.btn--radius-2 {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   }
 }
 
@@ -271,12 +467,17 @@ textarea.input1 + .shadow-input1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+.btn--pill {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
 
 .contact1-form-btn {
   min-width: 193px;
   height: 50px;
   border-radius: 25px;
+.btn--green {
   background: #57b846;
   font-family: Montserrat-Bold;
   font-size: 15px;
@@ -290,11 +491,14 @@ textarea.input1 + .shadow-input1 {
   justify-content: center;
   align-items: center;
   padding: 0 25px;
+}
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+.btn--green:hover {
+  background: #4dae3c;
 }
 
 .contact1-form-btn i {
@@ -304,10 +508,14 @@ textarea.input1 + .shadow-input1 {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
+.btn--blue {
+  background: #4272d7;
 }
 
 .contact1-form-btn:hover {
   background: #333333;
+.btn--blue:hover {
+  background: #3868cd;
 }
 
 .contact1-form-btn:hover i {
@@ -316,68 +524,198 @@ textarea.input1 + .shadow-input1 {
   -ms-transform: translateX(10px);
   -o-transform: translateX(10px);
   transform: translateX(10px);
+/* ==========================================================================
+   #DATE PICKER
+   ========================================================================== */
+td.active {
+  background-color: #2c6ed5;
 }
 
+input[type="date" i] {
+  padding: 14px;
+}
 
+.table-condensed td, .table-condensed th {
+  font-size: 14px;
+  font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+}
 
+.daterangepicker td {
+  width: 40px;
+  height: 30px;
+}
 
 /*------------------------------------------------------------------
 [ Responsive ]*/
+.daterangepicker {
+  border: none;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  display: none;
+  border: 1px solid #e0e0e0;
+  margin-top: 5px;
+}
 
 @media (max-width: 1200px) {
   .contact1-pic {
     width: 33.5%;
+.daterangepicker::after, .daterangepicker::before {
+  display: none;
   }
 
   .contact1-form {
     width: 44%;
+.daterangepicker thead tr th {
+  padding: 10px 0;
   }
+
+.daterangepicker .table-condensed th select {
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
 }
 
 @media (max-width: 992px) {
   .container-contact1 {
     padding: 90px 80px 88px 90px;
+/* ==========================================================================
+   #FORM
+   ========================================================================== */
+input {
+  outline: none;
+  margin: 0;
+  border: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
   }
 
   .contact1-pic {
     width: 35%;
+.input--style-4 {
+  line-height: 50px;
+  background: #fafafa;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #666;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
   }
 
   .contact1-form {
     width: 55%;
+.input--style-4::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #666;
   }
+
+.input--style-4:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #666;
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
   .container-contact1 {
     padding: 90px 80px 88px 80px;
+.input--style-4::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #666;
+  opacity: 1;
   }
 
   .contact1-pic {
     display: none;
+.input--style-4:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #666;
   }
 
   .contact1-form {
     width: 100%;
+.input--style-4:-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #666;
   }
+
+.label {
+  font-size: 16px;
+  color: #555;
+  text-transform: capitalize;
+  display: block;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 576px) {
   .container-contact1 {
     padding: 90px 15px 88px 15px;
+.radio-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   }
+
+.radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
+.radio-container input:checked ~ .checkmark {
+  background-color: #e5e5e5;
+}
 
 /*------------------------------------------------------------------
 [ Alert validate ]*/
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
 
 .validate-input {
   position: relative;
+.radio-container .checkmark:after {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: #57b846;
 }
 
 .alert-validate::before {
   content: attr(data-validate);
+.checkmark {
   position: absolute;
   max-width: 70%;
   background-color: white;
@@ -392,29 +730,55 @@ textarea.input1 + .shadow-input1 {
   transform: translateY(-50%);
   right: 8px;
   pointer-events: none;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #e5e5e5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+}
 
   font-family: Montserrat-Medium;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
 
   visibility: hidden;
   opacity: 0;
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
 
   -webkit-transition: opacity 0.4s;
   -o-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
   transition: opacity 0.4s;
+.input-group-icon {
+  position: relative;
 }
 
 .alert-validate::after {
   content: "\f06a";
   font-family: FontAwesome;
   display: block;
+.input-icon {
   position: absolute;
   color: #c80000;
   font-size: 15px;
+  font-size: 18px;
+  color: #999;
+  right: 18px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -422,16 +786,149 @@ textarea.input1 + .shadow-input1 {
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
   right: 13px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   #SELECT2
+   ========================================================================== */
+.select--no-search .select2-search {
+  display: none !important;
+}
+
+.rs-select2 .select2-container {
+  width: 100% !important;
+  outline: none;
+  background: #fafafa;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.rs-select2 .select2-container .select2-selection--single {
+  outline: none;
+  border: none;
+  height: 50px;
+  background: transparent;
+}
+
+.rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+  line-height: 50px;
+  padding-left: 0;
+  color: #555;
+  font-size: 16px;
+  font-family: inherit;
+  padding-left: 22px;
+  padding-right: 50px;
+}
+
+.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 50px;
+  right: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
+  display: none;
+}
+
+.rs-select2 .select2-container .select2-selection--single .select2-selection__arrow:after {
+  font-family: "Material-Design-Iconic-Font";
+  content: '\f2f9';
+  font-size: 24px;
+  color: #999;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.rs-select2 .select2-container.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
+.select2-container--open .select2-dropdown--below {
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.select2-container--default .select2-results__option {
+  padding-left: 22px;
+}
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+  font-size: 24px;
+  color: #525252;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.card {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.card-4 {
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
 .alert-validate:hover:before {
   visibility: visible;
   opacity: 1;
+.card-4 .card-body {
+  padding: 57px 65px;
+  padding-bottom: 65px;
 }
 
 @media (max-width: 992px) {
   .alert-validate::before {
     visibility: visible;
     opacity: 1;
+@media (max-width: 767px) {
+  .card-4 .card-body {
+    padding: 50px 40px;
   }
 }

@@ -55,20 +55,13 @@
 							</div>
 							<div>
 								<h3 class="product-price">@Model.Unit_Price<del class="product-old-price">@Model.Discount</del></h3>
-								@*<span class="product-available">In Stock</span>*@
+							
 							</div>
 							<p>@Model.Description</p>
 
 							<div class="add-to-cart">
-								<div class="qty-label">
-									Qty
-									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-									</div>
-								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								
+								<a class="add-to-cart-btn btn pt-3" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
 							</div>
 
 							<ul class="product-btns">

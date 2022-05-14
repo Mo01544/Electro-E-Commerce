@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace Project_ASP.Net.Models
         }
         [Key]
         public int Cat_Id { get; set; }
-        [Required(ErrorMessage ="Category Name Is Requierd")]
+        [Required(ErrorMessage = "Category Name Is Requierd")]
         [MinLength(length: 3, ErrorMessage = "must be 3 letter or more")]
         [MaxLength(length: 25, ErrorMessage = "must be less than 25 letter")]
         public string Name { get; set; }

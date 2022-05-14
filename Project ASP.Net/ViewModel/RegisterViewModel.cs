@@ -4,6 +4,7 @@ namespace Project_ASP.Net.ViewModel
 
     public class RegisterViewModel
     {
+
         [Required]
         public string UserName { get; set; }
         [Required]
