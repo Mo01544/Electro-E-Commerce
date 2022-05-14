@@ -39,11 +39,11 @@ namespace Project_ASP.Net.Controllers
             int pageSize = 9;
 
             var OnPageOfProduct = ProductsRepository.GetProducts().ToPagedList(pageNumber, pageSize);
-            return View(OnPageOfProduct);
-            List<Product> productList = ProductsRepository.GetProducts();
+            
+            
             List<FilterBrandData> brandDatas = ProductsRepository.GetBrands();
             List<FilterPanalCategoryData> categories = filterCategoryRepository.GetAll();
-            return View(new StoreViewModel() { Categories = categories, Brands = brandDatas, Products = productList, filters = filters });
+            return View(new StoreViewModel() { Categories = categories, Brands = brandDatas, Products = OnPageOfProduct, filters = filters });
         }
 
 
@@ -125,12 +125,11 @@ namespace Project_ASP.Net.Controllers
                 ViewData["CategoryList"] = categoryRepository.GetAll();
                 return View("EditProduct", Newproduct);     
         }
-         //search
+        //search
         public IActionResult Search(string ProductName)
         {
-            var CurrentProduct = ProductsRepository.CurrentProducts(ProductName);
-            return View("GetAllProducts", CurrentProduct);
-           
+            var CurrentProduct = ProductsRepository.CurrentProducts( ProductName);
+            return PartialView("FilteredProducts", CurrentProduct);
         }
 
         public IActionResult FilterProductByCategory(List<string> categories)
