@@ -32,4 +32,19 @@ else
     </li>
 }
 </ul>
+<ul class="header-links pull-right">
+						
+				@if (User.IsInRole("User") == true)
+				{
+					<li><a class="dropdown-item" asp-controller="Orders" asp-action="OrderList"><i class="bi bi-list" ></i> <b style="font-size : 15px">Orders</b></a></li>
+				}
+
+						@if(User.IsInRole("Admin")==true)
+						{
+							<li><a asp-controller="Role" asp-action="Create"><i ></i> <b style="font-size : 15px">Create Roles</b></a></li>
+						<li><a asp-controller="Register" asp-action="AddAdmin"><i class="fa fa-user-o"></i> <b style="font-size : 15px">Add Admin</b></a></li>
+						}
+					</ul>
+				</div>
+			</div>
 
