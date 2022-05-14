@@ -41,10 +41,10 @@
 			</div>
 		</div>
 	</div>
-@*	@if (User.IsInRole("User") == true){
-*@		<div class="add-to-cart">
+	@if (User.IsInRole("User") == true){
+		<div class="add-to-cart">
 								<a class="add-to-cart-btn btn pt-3" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
 	</div>
-	@*}*@
+	}
 </div>
 <!-- /product -->

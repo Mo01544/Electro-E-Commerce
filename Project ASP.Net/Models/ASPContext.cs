@@ -14,9 +14,7 @@ namespace Project_ASP.Net.Models
         {
         }
 
-        public ASPContext()
-        {
-        }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,7 +29,7 @@ namespace Project_ASP.Net.Models
         public virtual DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderDetails>().HasKey(n => new { n.product_id, n.order_id });
+            
 
             modelBuilder.Entity<ApplicationUser>().ToTable("Users", "security");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles", "security");
