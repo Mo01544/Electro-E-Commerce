@@ -1,0 +1,46 @@
+﻿@model List<Order>
+
+@{
+	ViewData["Title"]="All Orders";
+
+}
+
+
+
+<table class="table table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col">OrderID</th>
+      <th scope="col">Items</th>
+      <th scope="col">Total</th>
+      <th scope="col">User</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (Order order in Model)
+     {
+         <tr>
+      <th scope="row">@order.Order_Id</th>
+      <td>
+          <ul style="list-style-type:none">
+              @foreach (var item in order.OrderDetails)
+             {
+                 <li>
+                     <div class="alert alert-info" role="alert">
+                         <span class="badge bg-success">@item.Amount</span>[@item.Price.ToString("c")]- @item.Product.Pro_Name
+                     </div>
+                 </li>
+             }
+          </ul>
+      </td>
+      <td>
+          @order.OrderDetails.Select(m=>m.Product.Unit_Price * m.Amount).Sum().ToString("c");
+      </td>
+      <td> - </td>
+    </tr>
+     }
+								<button class="btn btn-secondary" ><a asp-controller="products" asp-action="GetAllProducts" >Back TO List</a> </button>
+
+    
+  </tbody>
+</table>

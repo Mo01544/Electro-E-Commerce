@@ -1,9 +1,14 @@
-﻿@{
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+@model IEnumerable<Project_ASP.Net.Models.Product>
+@{
     ViewData["Title"] = "GetAllProducts";
 }
-@model List<Product>
-
-<a class="btn btn-primary" href="/Products/AddProduct">Add New Product</a>
+@if (User.IsInRole("Admin") == true){
+<a class="btn btn-secondary mt-4 offset-5" href="/Products/AddProduct">Add New Product</a>
+}
 <div id="store" class="col-md-12">
 <div class="row">
 @foreach (Product item in Model)
@@ -14,5 +19,19 @@
 }
 </div>
 </div>
-
 <div style="height:70px"></div>
+@if (@Model.Count() >= 9)
+{
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("GetAllProducts", new { page = page }),
+new PagedListRenderOptions
+{
+DisplayItemSliceAndTotal = true,
+ContainerDivClasses = new[] { "navigation" },
+LiElementClasses = new[] { "page-item" },
+PageClasses = new[] { "page-link" },
+})}
+else{
+    <div>
+        <a class="btn btn-primary" href="/Products/GetAllProducts?page=2">LastPage</a>
+    </div>
+}

@@ -6,10 +6,12 @@ namespace Project_ASP.Net.Repositories
 {
     public interface IProductsRepository
     {
-        int AddNewProduct(Product NewProduct, IFormFile image);
+        int AddNewProduct(Product NewProduct);
         int DeleteProduct(int id);
         int EditProduct(int id, Product NewProduct);
         List<Product> GetProducts();
         Product GetProductById(int id);
+        //search
+        List<Product> CurrentProducts(string ProductName);
     }
 }

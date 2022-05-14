@@ -257,17 +257,8 @@ namespace Project_ASP.Net.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Total_price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("product_Quantity")
-                        .HasColumnType("int");
 
                     b.Property<string>("user_id")
                         .HasColumnType("nvarchar(450)");
@@ -281,15 +272,28 @@ namespace Project_ASP.Net.Migrations
 
             modelBuilder.Entity("Project_ASP.Net.Models.OrderDetails", b =>
                 {
-                    b.Property<int>("product_id")
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
                         .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("order_id")
                         .HasColumnType("int");
 
-                    b.HasKey("product_id", "order_id");
+                    b.Property<int>("product_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
 
                     b.HasIndex("order_id");
+
+                    b.HasIndex("product_id");
 
                     b.ToTable("OrderDetails");
                 });
@@ -337,6 +341,29 @@ namespace Project_ASP.Net.Migrations
                     b.HasIndex("cat_id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Project_ASP.Net.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShoppingCartId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("productPro_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("productPro_Id");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -427,6 +454,15 @@ namespace Project_ASP.Net.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Project_ASP.Net.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("Project_ASP.Net.Models.Product", "product")
+                        .WithMany()
+                        .HasForeignKey("productPro_Id");
+
+                    b.Navigation("product");
                 });
 
             modelBuilder.Entity("Project_ASP.Net.Models.ApplicationUser", b =>

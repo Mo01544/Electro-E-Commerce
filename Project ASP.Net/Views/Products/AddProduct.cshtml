@@ -1,74 +1,95 @@
-﻿@model Project_ASP.Net.Models.Product
-
+﻿@model Project_ASP.Net.ViewModel.ProductViewModel
 @{
-    ViewData["Title"] = "AddProduct";
-    SelectList categoryList=new SelectList(ViewBag.CategoryList,"Cat_Id","Name");
+	ViewData["Title"] = "AddProduct";
+	SelectList categoryList = new SelectList(ViewBag.CategoryList, "Cat_Id", "Name");
 }
 
-<h2>AddProduct</h2>
+<div class="wrapper wrapper--w880">
+	<div class="card card-4">
+		<div style="height: 50px;text-align:center  ;color:#333">
+		</div>
+		<div class="card-body">
+			<form method="post" asp-action="AddProduct" enctype="multipart/form-data">
+				<div class="row row-space">
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-action="AddProduct">
-            <div asp-validation-summary="All" class="text-danger"></div>
+					<div class="col-11">
+						<div class="input-group">
+							<label asp-for="Name" class="control-label"></label>
+							<input asp-for="Name" class="input--style-4" />
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row row-space">
+					<div class="col-11">
+						<div class="input-group">
+							<label asp-for="Brand" class="control-label"></label>
+							<input asp-for="Brand" class="input--style-4" />
+							<span asp-validation-for="Brand" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row row-space">
 
-            <div class="form-group">
-                <label asp-for="Pro_Name" class="control-label"></label>
-                <input asp-for="Pro_Name" class="form-control" />
-                <span asp-validation-for="Pro_Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product_Brand" class="control-label"></label>
-                <input asp-for="Product_Brand" class="form-control" />
-                <span asp-validation-for="Product_Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Unit_Price" class="control-label"></label>
-                <input asp-for="Unit_Price" class="form-control" />
-                <span asp-validation-for="Unit_Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumSeller" class="control-label"></label>
-                <input asp-for="NumSeller" class="form-control" />
-                <span asp-validation-for="NumSeller" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="file" name="image"/>
-                <span asp-validation-for="image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Discount" class="control-label"></label>
-                <input asp-for="Discount" class="form-control" />
-                <span asp-validation-for="Discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="cat_id" class="control-label"></label>
-                <select asp-for="cat_id" asp-items="categoryList"></select>
-                <span asp-validation-for="cat_id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add Product" class="btn btn-default" />
-            </div>
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="Unit_Price" class="control-label"></label>
+							<input asp-for="Unit_Price" value="0" class="input--style-4" />
+							<span asp-validation-for="Unit_Price" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="Stock" class="control-label"></label>
+							<input asp-for="Stock" value="0" class="input--style-4" />
+							<span asp-validation-for="Stock" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row row-space">
 
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="Discount" class="control-label"></label>
+							<input asp-for="Discount" value="0" class="input--style-4" />
+							<span asp-validation-for="Discount" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="image" class="control-label"></label>
+							<input type="file" asp-for="image" class="input--style-4" />
+							<span asp-validation-for="image" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row row-space">
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="Description" class="control-label"></label>
+							<br />
+							<textarea asp-for="Description" style="width:400px;height:200px"></textarea>
+							<br />
 
+							<span asp-validation-for="Description" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="input-group">
+							<label asp-for="Cat_id" class="control-label"></label>
+							<select asp-for="Cat_id" asp-items="categoryList" class="form-control" style="height:50px"></select>
+							<span asp-validation-for="Cat_id" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row-space">
+					<input type="submit" value="submit" class="form-control" style="font-size:15px;color:white;background-color:#D10024;height:50px; width:170px" />
+				</div>
 
-        </form>
-    </div>
+			</form>
+		</div>
+	</div>
 </div>
-
 <div>
-    <a asp-action="GetAllProducts" asp-controller="Products">Back to List</a>
+	<a asp-action="GetAllProducts">Back to List</a>
 </div>
-

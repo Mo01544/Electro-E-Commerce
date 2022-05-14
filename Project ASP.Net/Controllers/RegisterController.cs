@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_ASP.Net.Models;
 using Project_ASP.Net.ViewModel;
@@ -21,6 +22,7 @@ namespace Project_ASP.Net.Controllers
         public IActionResult Register() => View();
         [HttpPost]
         [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Register(RegisterViewModel RegisterUserVm)
         {
             if (ModelState.IsValid == true)
@@ -33,6 +35,7 @@ namespace Project_ASP.Net.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(applicationUser, false);
+                    await userManger.AddToRoleAsync(applicationUser, "User");
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -59,7 +62,9 @@ namespace Project_ASP.Net.Controllers
                     bool found = await userManger.CheckPasswordAsync(loginmodel, loginvm.Password);
                     if (found == true)
                     {
+
                         await signInManager.SignInAsync(loginmodel, loginvm.RememberMe);
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -72,6 +77,40 @@ namespace Project_ASP.Net.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public IActionResult AddAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddAdmin(RegisterViewModel adminvm)
+        {
+            if (ModelState.IsValid == true)
+            {
+                ApplicationUser applicationUser = new ApplicationUser();
+                applicationUser.UserName = adminvm.UserName;
+                applicationUser.Email = adminvm.Email;
+                applicationUser.PasswordHash = adminvm.Password;
+                IdentityResult result = await userManger.CreateAsync(applicationUser, adminvm.Password);
+                if (result.Succeeded)
+                {
+                    await userManger.AddToRoleAsync(applicationUser, "Admin");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (IdentityError item in result.Errors)
+                    {
+                        ModelState.AddModelError("", item.Description);
+                    }
+                }
+            }
+            return View(adminvm);
         }
     }
 }

@@ -184,10 +184,7 @@ namespace Project_ASP.Net.Migrations
                 {
                     Order_Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    product_Quantity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Total_price = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     user_id = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -231,12 +228,16 @@ namespace Project_ASP.Net.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     order_id = table.Column<int>(type: "int", nullable: false),
                     product_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetails", x => new { x.product_id, x.order_id });
+                    table.PrimaryKey("PK_OrderDetails", x => x.id);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders_order_id",
                         column: x => x.order_id,
@@ -249,6 +250,27 @@ namespace Project_ASP.Net.Migrations
                         principalTable: "Products",
                         principalColumn: "Pro_Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartItems",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    productPro_Id = table.Column<int>(type: "int", nullable: true),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_Products_productPro_Id",
+                        column: x => x.productPro_Id,
+                        principalTable: "Products",
+                        principalColumn: "Pro_Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -296,6 +318,11 @@ namespace Project_ASP.Net.Migrations
                 column: "order_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_product_id",
+                table: "OrderDetails",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_user_id",
                 table: "Orders",
                 column: "user_id");
@@ -304,6 +331,11 @@ namespace Project_ASP.Net.Migrations
                 name: "IX_Products_cat_id",
                 table: "Products",
                 column: "cat_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_productPro_Id",
+                table: "ShoppingCartItems",
+                column: "productPro_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -328,6 +360,9 @@ namespace Project_ASP.Net.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
