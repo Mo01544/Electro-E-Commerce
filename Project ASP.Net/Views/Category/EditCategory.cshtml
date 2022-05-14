@@ -1,33 +1,36 @@
-﻿@model Category
+﻿@model CategoryViewModel
 @{
     ViewData["Title"] = "EditCategory";
-    Layout = "_EditCategory";
 }
 
-<form method="post" asp-action="SaveEditCategory" asp-controller="Category" >
-            <span class="contact1-form-title">
-					Edit Category
-			</span>
-            <div style="margin-bottom:15px">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" value="@Model.Name"  class="input1" />
+<h2 style="margin-top:15px">Edit Category</h2>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-action="SaveEditCategory" asp-route-id="@Model.Id" style="margin-top:10px"  enctype= "multipart/form-data" >
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div style="margin-bottom:15px">
-                <label asp-for="Description"></label>
-                <input asp-for="Description" value="@Model.Description" class="input1" />
+            <div class="form-group" style="margin-top:15px">
+                <input type="file" name="image"/>
+                <span asp-validation-for="Picture" class="text-danger"></span>
+                <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="50" width="50" asp-append-version="true" />
             </div>
-            <div style="margin-bottom:15px">
-                <label asp-for="picture"></label>
-                <input asp-for="picture" value="@Model.picture" class="input1" />
+            <div class="form-group" style="margin-top:15px">
+
+                 <label asp-for="Description" class="control-label"></label>
+                 <textarea asp-for="Description" class="form-control"></textarea>
+                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="container-contact1-form-btn">
-					<button class="contact1-form-btn">
-						<span>
-							Edit
-							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-						</span>
-					</button>
-				</div>
-            
+            <div class="form-group">
+                <input type="submit" value="Edit Category" class="btn btn-default" />
+            </div>
         </form>
+    </div>
+</div>
 

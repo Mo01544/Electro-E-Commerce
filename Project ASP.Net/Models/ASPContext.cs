@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Project_ASP.Net.ViewModel;
 
 namespace Project_ASP.Net.Models
 {
@@ -23,6 +24,7 @@ namespace Project_ASP.Net.Models
         {
             modelBuilder.Entity<OrderDetails>().HasKey(n => new { n.product_id, n.order_id });
             base.OnModelCreating(modelBuilder);
+        
         }
 
         public virtual DbSet<Product> Products { get; set; }
@@ -30,5 +32,6 @@ namespace Project_ASP.Net.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<FilterPanalCategoryData> CategoriesFilterPanel { get; set; }
+
     }
 }

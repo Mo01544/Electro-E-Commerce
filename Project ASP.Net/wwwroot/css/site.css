@@ -62,3 +62,56 @@ aside div.aside {
     margin-bottom: 5px;
     cursor: pointer;
 }
+
+
+body {
+    background-color: Black;
+}
+
+div.upload {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: inline-block;
+    height: 30px;
+    padding: 3px 40px 3px 3px;
+    position: relative;
+    width: auto;
+}
+
+    div.upload:hover {
+        opacity: 0.95;
+    }
+
+    div.upload input[type="file"] {
+        display: input-block;
+        width: 100%;
+        height: 30px;
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+    }
+
+.uploadButton {
+    background-color: #425F9C;
+    border: none;
+    border-radius: 3px;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin-right: 15px;
+    width: auto;
+    padding: 0 20px;
+    box-sizing: content-box;
+}
+
+.fileName {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.upload + .uploadButton {
+    height: 38px;
+}

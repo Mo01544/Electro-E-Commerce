@@ -1,41 +1,38 @@
-﻿
+﻿@model CategoryViewModel;
+
 @{
     ViewData["Title"] = "AddCategory";
-    Layout = "_AddCategory";
 }
 
-@model Category;
+<h2 style="margin-top:15px">Add Category</h2>
 
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-action="SaveAddCategory" asp-route-id="@Model.Id" style="margin-top:10px"  enctype= "multipart/form-data" >
 
-
-        <form method="post" asp-action="SaveAddCategory" asp-controller="Category"  style="margin:15px" enctype="multipart/form-data">
-            <span class="contact1-form-title">
-					Add Category
-			</span>
-            <div style="margin-bottom:15px">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="input1" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div style="margin-bottom:15px">
-                <label asp-for="Description"></label>
-                <input asp-for="Description" class="input1" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="form-group" style="margin-top:15px">
+                <input asp-for="Picture" type="file"/>
+                <span asp-validation-for="Picture" class="text-danger"></span>
             </div>
-            <div style="margin-bottom:15px">
-                <label asp-for="picture"></label>
-                <input asp-for="picture" type="file"/>
-                <span asp-validation-for="picture" class="text-danger"></span>
+            <div class="form-group" style="margin-top:15px">
+
+                 <label asp-for="Description" class="control-label"></label>
+                 <textarea asp-for="Description" class="form-control"></textarea>
+                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="container-contact1-form-btn">
-					<button class="contact1-form-btn">
-						<span>
-							Add
-							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-						</span>
-					</button>
-				</div>
-            
+            <div class="form-group">
+                <input type="submit" value="Add Category" class="btn btn-default" />
+            </div>
         </form>
+    </div>
+</div>
 
 
+   

@@ -233,7 +233,6 @@ namespace Project_ASP.Net.Migrations
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("picture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Cat_Id");

@@ -8,16 +8,21 @@ using Microsoft.AspNetCore.Http;
 using Project_ASP.Net.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_ASP.Net.Controllers
 {
+    
     public class CategoryController : Controller
     {
+        private ASPContext db;
         ICategoriesRepository cateRepository;
         IWebHostEnvironment webHostEnvironment;
 
-        public CategoryController(ICategoriesRepository catesRepository, IWebHostEnvironment webHostEnvironment)
+        public CategoryController(ICategoriesRepository catesRepository, IWebHostEnvironment webHostEnvironment, ASPContext _db)
         {
+            db = _db;
             cateRepository = catesRepository;
             this.webHostEnvironment = webHostEnvironment;
         }
@@ -37,51 +42,81 @@ namespace Project_ASP.Net.Controllers
         }
         public IActionResult AddCategory()
         {
-            return View(new Category());
+            return View(new CategoryViewModel());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaveAddCategory(CategoryViewModel cat)
         {
 
-            if (ModelState.IsValid == false)
+            if (ModelState.IsValid == true)
             {
-                return View("AddCategory", cat);
+                string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
+                string imgPath = Path.Combine(categoriesImages, UniqueimgName);
+                using (var fileStream = new FileStream(imgPath, FileMode.Create))
+                {
+                    cat.Picture.CopyTo(fileStream);
+                    fileStream.Close();
+                }
+                this.cateRepository.Insert(new Category() { Name = cat.Name, picture = UniqueimgName, Description = cat.Description });
+                return RedirectToAction("CrudCategory");
             }
 
-            string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
-            string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
-            string imgPath = Path.Combine(categoriesImages, UniqueimgName);
-            using (var fileStream = new FileStream(imgPath, FileMode.Create))
-            {
-                cat.Picture.CopyTo(fileStream);
-                fileStream.Close();
-            }
-            this.cateRepository.Insert(new Category() { Name = cat.Name, picture = UniqueimgName, Description = cat.Description });
-            return RedirectToAction("CrudCategory");
+
+            return View("AddCategory", cat);
 
 
         }
-        public IActionResult EditCategory(int id)
+        public async Task<IActionResult> EditCategory(int id)
         {
-            Category cate = cateRepository.FindById(id);
+          
+            var cate = await db.Categories.FindAsync(id);
+            var CategoryViewModel = new CategoryViewModel()
+            {
+                Id = cate.Cat_Id,
+                Name = cate.Name,
+                Description = cate.Description,
+                ExistingImage = cate.picture
+            };
             if (cate != null)
             {
-                return View("EditCategory", cate);
+                return View(CategoryViewModel);
             }
             return RedirectToAction("CrudCategory");
         }
         [HttpPost]
-        public IActionResult SaveEditCategory(int id,// [Bind("Name,Address")]
-            Category cate)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEditCategory(int id, CategoryViewModel cate)
         {
-            if (cate.Name != null)
+
+            if (ModelState.IsValid == true)
             {
-                cateRepository.Edit(id, cate);
-                return RedirectToAction("CrudCategory");
+                var category = await db.Categories.FindAsync(cate.Id);
+                category.Name = cate.Name;
+                category.Description = cate.Description;
+
+
+                if (cate.Picture != null)
+                {
+                    if (cate.ExistingImage != null)
+                    {
+                        string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", cate.ExistingImage);
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    category.picture = ProcessUploadedFile(cate);
+                }
+                db.Update(category);
+                await db.SaveChangesAsync();
+                return RedirectToAction(nameof(CrudCategory));
             }
-            return View("SaveEditCategory", cate);
-        }
+
+            else
+            {
+                    return View("EditCategory", cate);
+            }
+        } 
         public IActionResult DeleteCategory(int id)
         {
    
@@ -89,6 +124,23 @@ namespace Project_ASP.Net.Controllers
             return RedirectToAction("CrudCategory");
 
 
+        }
+        private string ProcessUploadedFile(CategoryViewModel cate)
+        {
+            string uniqueFileName = null;
+
+            if (cate.Picture != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + cate.Picture.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    cate.Picture.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
         }
 
     }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Web;
 using System.ComponentModel.DataAnnotations;
 namespace Project_ASP.Net.Models
 {
@@ -23,10 +24,8 @@ namespace Project_ASP.Net.Models
         [MinLength(length: 20, ErrorMessage = "must be 20 letter or more")]
         [MaxLength(length: 100, ErrorMessage = "must be less than 100 letter")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "Picture Is Requierd")]
-        [RegularExpression(pattern: @"\w+\.(jpg|png|jpeg)", ErrorMessage = "Picture Must End Path (.jpg,.png,.jpeg)")]
+
         public string picture { get; set; }
         public virtual List<Product> Products { get; set; }
-
     }
 }
