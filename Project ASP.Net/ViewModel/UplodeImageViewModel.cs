@@ -4,7 +4,7 @@ namespace Project_ASP.Net.ViewModel
 {
     public class UplodeImageViewModel
     {
-
+        
         public IFormFile Picture { get; set; }
     }
 }

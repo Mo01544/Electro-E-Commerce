@@ -37,13 +37,13 @@
 			<div class="product-btns">
 				<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 				<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-				<button class="quick-view"><a class="btn btn-secondary" href="/Products/Details/@Model.Pro_Id"><i class="fa fa-eye"></a></i><span class="tooltipp">quick view</span></button>
+				<button class="quick-view"><a class="btn btn-secondary" href="/Products/Details/@Model.Pro_Id"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
 			</div>
 		</div>
 	</div>
 	@if (User.IsInRole("User") == true){
 		<div class="add-to-cart">
-								<a class="add-to-cart-btn btn pt-3" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
+			<a class="add-to-cart-btn btn pt-1 " asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
 	</div>
 	}
 </div>

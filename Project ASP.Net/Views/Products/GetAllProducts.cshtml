@@ -20,12 +20,12 @@
                         <div class="input-checkbox form-check">
                             @if (Model.filters.Any(x => x.ToUpper().Trim() == @category.CategoryName.ToUpper().Trim()))
                             {
-                                <input class="form-check-input chks" type="checkbox" onchange="filterByCategory()" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()" checked />
+                                <input class="chks" type="checkbox" onchange="filterByCategory()" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()" checked />
 
                             }
                             else
                             {
-                                <input class="form-check-input chks" type="checkbox" onchange="filterByCategory(this)" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()">
+                                <input class="chks" type="checkbox" onchange="filterByCategory(this)" value="@category.CategoryName.Trim()" id="@category.CategoryName.Trim()">
 
                             }
                             <label class="form-check-label" for="category-1">
@@ -77,7 +77,7 @@
                             }
                             else
                             {
-                                <input class="form-check-input brand-chk" onchange="filterByBrand()" type="checkbox" value="@brand.BrandName.Trim()" id="@brand.BrandName.Trim()">
+                                <input class="brand-chk" onchange="filterByBrand()" type="checkbox" value="@brand.BrandName.Trim()" id="@brand.BrandName.Trim()">
 
                             }
                             <label class="form-check-label" for="brand-1">
@@ -93,7 +93,7 @@
             <!-- /aside Widget -->
         </aside>
     </div>
-    <div class="col-9">
+    <div class="col-10">
         <div class="d-flex flex-column justify-content-center align-items-center">
             @if (User.IsInRole("Admin") == true)
             {

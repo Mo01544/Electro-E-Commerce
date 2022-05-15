@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_ASP.Net.Models;
 
 namespace Project_ASP.Net.Migrations
 {
     [DbContext(typeof(ASPContext))]
-    partial class ASPContextModelSnapshot : ModelSnapshot
+    [Migration("20220514235601_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,7 +246,6 @@ namespace Project_ASP.Net.Migrations
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("picture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Cat_Id");

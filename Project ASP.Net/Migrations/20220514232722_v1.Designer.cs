@@ -10,13 +10,8 @@ using Project_ASP.Net.Models;
 namespace Project_ASP.Net.Migrations
 {
     [DbContext(typeof(ASPContext))]
-<<<<<<<< HEAD:Project ASP.Net/Migrations/20220514002952_v1.Designer.cs
-    [Migration("20220514002952_v1")]
+    [Migration("20220514232722_v1")]
     partial class v1
-========
-    [Migration("20220514212841_v2")]
-    partial class v2
->>>>>>>> e7fa4ffc2066e979f7ac583c404cdf93ad4c66dd:Project ASP.Net/Migrations/20220514212841_v2.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -181,7 +176,6 @@ namespace Project_ASP.Net.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 

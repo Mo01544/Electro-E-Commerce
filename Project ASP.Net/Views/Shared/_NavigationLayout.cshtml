@@ -7,8 +7,15 @@
 					<ul class="main-nav nav">
 						<li class="active"><a href="/">Home</a></li>
 						<li><a asp-controller="products" asp-action="GetAllProducts">Products</a></li>
-						<li><a asp-controller="Category" asp-action="CrudCategory">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
+						 @if (User.IsInRole("Admin") == true)
+							{
+					<li><a asp-controller="Category" asp-action="CrudCategory">Categories</a></li>
+				}
+				else
+				{
+					<li><a asp-controller="Category" asp-action="getCategories">Categories</a></li>
+				}
+				<li><a href="#">Laptops</a></li>
 						<li><a href="#">Smartphones</a></li>
 						<li><a href="#">Cameras</a></li>
 						<li><a href="#">Accessories</a></li>

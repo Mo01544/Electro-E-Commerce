@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "EditCategory";
 }
-
+<div class="container">
 <h2 style="margin-top:15px">Edit Category</h2>
 
 <h4>Category</h4>
@@ -17,8 +17,7 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group" style="margin-top:15px">
-                <input type="file" name="image"/>
-                <span asp-validation-for="Picture" class="text-danger"></span>
+                <input type="file" name="Picture"/>
                 <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="50" width="50" asp-append-version="true" />
             </div>
             <div class="form-group" style="margin-top:15px">
@@ -33,4 +32,4 @@
         </form>
     </div>
 </div>
-
+</div>

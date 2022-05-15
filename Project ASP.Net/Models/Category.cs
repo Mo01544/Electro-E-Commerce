@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+
 namespace Project_ASP.Net.Models
 {
     public class Category
@@ -20,10 +21,10 @@ namespace Project_ASP.Net.Models
         [MaxLength(length: 25, ErrorMessage = "must be less than 25 letter")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Description Is Requierd")]
-        [MinLength(length: 20, ErrorMessage = "must be 20 letter or more")]
+        [MinLength(length: 7, ErrorMessage = "must be 7 letter or more")]
         [MaxLength(length: 100, ErrorMessage = "must be less than 100 letter")]
         public string Description { get; set; }
-
+        [Required(ErrorMessage = "Picture Is Requierd")]
         public string picture { get; set; }
         public virtual List<Product> Products { get; set; }
     }

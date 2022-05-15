@@ -60,9 +60,10 @@
 							<p>@Model.Description</p>
 
 							<div class="add-to-cart">
-								
-								<a class="add-to-cart-btn btn pt-3" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
-							</div>
+								@if (User.IsInRole("User") == true){
+								<a class="add-to-cart-btn btn pt-1" asp-controller="Orders" asp-action="AddtoShoppingCart" asp-route-id=@Model.Pro_Id><i class="fa fa-shopping-cart"></i> add to cart</a>
+							
+								}</div>
 
 							<ul class="product-btns">
 								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
@@ -89,8 +90,9 @@
 
 
 						</div>
+						
 								<button class="btn btn-secondary" ><a asp-controller="products" asp-action="GetAllProducts" >Back TO List</a> </button>
-
+						
 					</div>
 					<!-- /Product details -->
 

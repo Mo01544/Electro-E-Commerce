@@ -87,7 +87,7 @@ namespace Project_ASP.Net.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddAdmin(RegisterViewModel adminvm)
         {
             if (ModelState.IsValid == true)

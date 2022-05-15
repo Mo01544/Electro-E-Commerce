@@ -16,8 +16,6 @@ namespace Project_ASP.Net.Controllers
         private ICategoriesRepository cateRepository;
         private IWebHostEnvironment webHostEnvironment;
         private ASPContext db;
-        ICategoriesRepository cateRepository;
-        IWebHostEnvironment webHostEnvironment;
 
         public CategoryController(ICategoriesRepository catesRepository, IWebHostEnvironment webHostEnvironment, ASPContext _db)
         {
@@ -29,24 +27,8 @@ namespace Project_ASP.Net.Controllers
         public IActionResult getCategories() => View(cateRepository.GetAll());
         public IActionResult getCategoryById(int id) => View(cateRepository.FindById(id));
         public IActionResult CrudCategory(Category cate) => View(cateRepository.GetAll());
-        public IActionResult AddCategory() => View(new Category());
-        public IActionResult getCategories()
-        {
-            return View(cateRepository.GetAll());
-        }
-        public IActionResult getCategoryById(int id)
-        {
-            return View(cateRepository.FindById(id));
-        }
-        public IActionResult CrudCategory(Category cate)
-        {
+        public IActionResult AddCategory() => View(new CategoryViewModel());
 
-            return View(cateRepository.GetAll());
-        }
-        public IActionResult AddCategory()
-        {
-            return View(new CategoryViewModel());
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SaveAddCategory(CategoryViewModel cat)
@@ -54,8 +36,6 @@ namespace Project_ASP.Net.Controllers
 
             if (ModelState.IsValid == true)
             {
-                return View("AddCategory", cat);
-            }
 
             string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
             string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
@@ -67,16 +47,7 @@ namespace Project_ASP.Net.Controllers
             }
             this.cateRepository.Insert(new Category() { Name = cat.Name, picture = UniqueimgName, Description = cat.Description });
             return RedirectToAction("CrudCategory");
-                string categoriesImages = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                string UniqueimgName = Guid.NewGuid().ToString() + "_" + cat.Picture.FileName;
-                string imgPath = Path.Combine(categoriesImages, UniqueimgName);
-                using (var fileStream = new FileStream(imgPath, FileMode.Create))
-                {
-                    cat.Picture.CopyTo(fileStream);
-                    fileStream.Close();
-                }
-                this.cateRepository.Insert(new Category() { Name = cat.Name, picture = UniqueimgName, Description = cat.Description });
-                return RedirectToAction("CrudCategory");
+
             }
 
 
