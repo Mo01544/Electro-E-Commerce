@@ -15,8 +15,8 @@ namespace ASPNetCoreIdentityEmailDemo.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            string fromMail = "ayasmostafa257@gmail.com";
-            string fromPassword = "jxmscehdbyvargah";
+            string fromMail = "<your email>";
+            string fromPassword = "<your password>";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
